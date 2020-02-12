@@ -2,7 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/sign/sign.module').then(m => m.SignModule)
+  },
+  {
+    path: 'denunciations',
+    loadChildren: () => import('./pages/denunciations-manager/denunciations-manager.module').then(m => m.DenunciationsManagerModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./pages/search-denunciation/search-denunciation.module').then(m => m.SearchDenunciationModule)
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
