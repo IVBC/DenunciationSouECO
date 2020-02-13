@@ -1,0 +1,204 @@
+::ng-deep{
+
+  .mat-horizontal-content-container {
+    overflow: hidden;
+    padding: 0 0 0 0 !important;
+  }
+
+
+  .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+    background-color: #058950 !important;
+    color: #fff;
+  }
+
+}
+
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+  background-color: #058950 !important;
+  color: #fff;
+}
+
+.mat-horizontal-content-container {
+  overflow: hidden;
+  padding: 0 0 0 0 !important;
+}
+
+
+
+
+
+
+.logo-login{
+  height: 130px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url(../../../../assets/images/logoSouECOCidadao.png);
+}
+
+.btn-eco{
+  background: #058950;
+  border-color: #058950;
+  color: #fff;
+}
+
+.status-denun{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.status-box{
+  // background: yellow;
+  width: 218px;
+  height: max-content;
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.img-loc{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  // cursor: pointer;
+}
+
+.div-img{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: #eef2f1;
+}
+
+.info-container{
+  width: 100%;
+  height: max-content;
+  // background: yellowgreen;
+
+}
+
+.info-user{
+  border-radius: 5px;
+  width: 45%;
+  // height: 250px;
+  background: #efefef;
+  height: max-content;
+  padding-bottom: 20px;
+}
+
+
+
+.title-box{
+  width: 100%;
+  padding-top: 10px;
+  height: 40px;
+}
+
+.title-info{
+  color:#058950;
+  width: max-content;
+  float: left;
+}
+
+.relator{
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding: 0px 20px;
+
+
+}
+
+.denuncia{
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding: 0px 20px;
+  height: max-content;
+  padding-bottom: 20px;
+}
+
+.info{
+  float: left;
+  font-size: 15px;
+}
+
+.tooltip{
+  background: #058950;
+  // color: #fff;
+  // font-weight: bolder;
+}
+
+.text-link{
+  text-decoration: none;
+  color: #212529;
+}
+
+.text-link:hover{
+  color:#058950;
+}
+
+.descript{
+  text-align: center;
+}
+
+.info-descript{
+  width: 100%;
+  height: max-content;
+  padding: 5px;
+  border: solid 1px #c8c8c8;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.photos-container{
+  width: 100%;
+  height: 200px;
+}
+
+.box-column{
+  flex-direction: column;
+  border-radius: 5px;
+  width: 45%;
+  height: max-content;
+}
+
+.item-box-column{
+  border-radius: 5px;
+  width: 100%;
+
+  background: #efefef;
+  height: max-content;
+}
+
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+
+}
