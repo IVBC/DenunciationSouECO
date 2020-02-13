@@ -1,1 +1,39 @@
-<p>sign-in works!</p>
+<div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%;">
+  <div class="card shadow" style="width: 28rem; height: max-content;">
+    <div class="card-body">
+      <div class="logo-login mb-4"></div>
+
+      <div class="info mb-3 d-flex justify-content-center  align-items-center" style="flex-direction: column;">
+        <span style="float: left;">CMS - SOU ECO</span>
+        <span style="float: left; font-size: 14px; color: #06894f;">Sistema de Gerenciamento de Denúncias - TCE</span>
+      </div>
+
+      <form [formGroup]="signinForm" (ngSubmit)="loginUser()">
+        <div class="input-group mb-3">
+          <!-- <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@</span>
+          </div> -->
+          <input type="email" class="form-control" formControlName="email" placeholder="Email"  required aria-label="email" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <!-- <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@</span>
+          </div> -->
+          <input type="password" class="form-control" formControlName="password" placeholder="Senha" aria-label="senha" aria-describedby="basic-addon1">
+        </div>
+
+        <div class=" mb-2 d-flex justify-content-center  align-items-center" >
+          <button  style="height: 40px;" type="submit" class="btn-eco btn btn-block  btn-sm">Acessar</button>
+        </div>
+      </form>
+
+      <!--
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+              </div>
+              <input type="password" class="form-control" placeholder="Senha" aria-label="Password" aria-describedby="basic-addon1">
+            </div> -->
+    </div>
+  </div>
+</div>

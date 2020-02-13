@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () => import('./pages/sign/sign.module').then(m => m.SignModule)
@@ -14,7 +15,8 @@ const routes: Routes = [
   {
     path: 'search',
     loadChildren: () => import('./pages/search-denunciation/search-denunciation.module').then(m => m.SearchDenunciationModule)
-  }
+  },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
