@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AuthInterceptor} from './shared/authconfig.interceptor';
 import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {ToastrModule} from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
   providers: [

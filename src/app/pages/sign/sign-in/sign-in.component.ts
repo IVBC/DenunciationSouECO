@@ -10,11 +10,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignInComponent implements OnInit {
   signinForm: FormGroup;
+  public loading: boolean;
 
   constructor(public fb: FormBuilder,
               public authService: AuthService,
               public router: Router,
-              public toastrService: ToastrService
+              public toastrService: ToastrService,
               ) {
     this.signinForm = this.fb.group({
       email: [''],
@@ -23,16 +24,23 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = false;
   }
   loginUser() {
     console.log(this.signinForm.value);
+    this.loading = true;
     this.authService.signIn(this.signinForm.value).subscribe((ans) => {
-      console.log(this.authService);
+      this.loading = false;
+      console.log(this.authService)
+      const name  = this.authService.currentUser.name;
+      this.toastrService.success('Bem Vindo ' + name + '!');
+      this.router.navigate(['denunciations']);
     }, error => {
-      if (error.code === 401) {
-        this.toastrService.error('Por favor, verifique o seu email e senha e tente novamente.', 'Falha na autenticação');
+      this.loading = false;
+      if (error.status === 401) {
+        this.toastrService.error('O email e senha inserido não corresponde a nenhuma conta. Tente novamente.', 'Falha na autenticação');
       } else {
-        this.toastrService.error('Por favor, verifique o seu email e senha e tente novamente.', 'Falha na autenticação');
+        this.toastrService.error('Por favor, tente mais tarde.', 'Falha na Comunicaçao com o Servidor');
       }
       console.log(error)
     });

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   endpoint = 'http://localhost:3333';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  public currentUser = {};
+  public currentUser: any;
 
   constructor(
     private http: HttpClient,

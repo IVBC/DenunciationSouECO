@@ -23,7 +23,11 @@
         </div>
 
         <div class=" mb-2 d-flex justify-content-center  align-items-center" >
-          <button  style="height: 40px;" type="submit" class="btn-eco btn btn-block  btn-sm">Acessar</button>
+          <button  [disabled]="loading" style="height: 40px;" type="submit" class="btn-eco btn btn-block  btn-sm">
+            <div *ngIf="loading" class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <span *ngIf="!loading"> Acessar</span></button>
         </div>
       </form>
 
