@@ -19,6 +19,8 @@ export class DenunciationListComponent implements OnInit {
   public status: label[] = [];
   public cols: any[];
 
+  public textStatus: string;
+
 
   constructor() { }
 
@@ -34,7 +36,7 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'Manaus',
         "state": 'Amazonas',
-        "status": 'string'
+        "status": 'SEND'
       },
       {
         "id": 2,
@@ -43,7 +45,7 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'Manaus',
         "state": 'Amazonas',
-        "status": 'string'
+        "status": 'IN_PROGRESS'
       },
       {
         "id": 3,
@@ -52,7 +54,7 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'Maués',
         "state": 'Amazonas',
-        "status": 'string'
+        "status": 'FORWARDED'
       },
       {
         "id": 4,
@@ -61,7 +63,7 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'Manaus',
         "state": 'Amazonas',
-        "status": 'string'
+        "status": 'DONE'
       },
       {
         "id": 5,
@@ -70,7 +72,7 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'Alenquer',
         "state": 'Para',
-        "status": 'string'
+        "status": 'DONE'
       },
       {
         "id": 6,
@@ -79,7 +81,7 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'Lisboa',
         "state": 'Para',
-        "status": 'string'
+        "status": 'FORWARDED'
       },
       {
         "id": 7,
@@ -88,7 +90,7 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'santarem',
         "state": 'Para',
-        "status": 'string'
+        "status": 'DONE'
       },
       {
         "id": 8,
@@ -97,7 +99,18 @@ export class DenunciationListComponent implements OnInit {
         "date": '2020-02-01T18:06:11.608Z',
         "city": 'Alenquer',
         "state": 'Para',
-        "status": 'string'
+        "status": 'IN_PROGRESS'
+
+      },
+      {
+        "id": 9,
+        "code": '53793783',
+        "type": 'fenda negra',
+        "date": '2020-02-01T18:06:11.608Z',
+        "city": 'Alenquer',
+        "state": 'Para',
+        "status": 'SEND'
+
       },
 
     ];
@@ -131,6 +144,23 @@ export class DenunciationListComponent implements OnInit {
       }
       console.log('varialve type',this.type);
 
+    }
+
+
+    public setStatus(p){
+      if(p == 'SEND'){
+        this.textStatus = 'Enviado';
+        return (this.textStatus, 'send' )
+      }else if(p == 'IN_PROGRESS'){
+        this.textStatus = 'Em Análise';
+        return (this.textStatus, 'progress' )
+      }else if(p == 'DONE'){
+        this.textStatus = 'Finalizado';
+        return (this.textStatus, 'done' )
+      }else if(p == 'FORWARDED'){
+        this.textStatus = 'Encaminhado';
+        return (this.textStatus, 'forwarded' )
+      }
     }
 
     // onYearChange(event, dt) {
