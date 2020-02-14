@@ -18,7 +18,7 @@ export interface complaint{
     timestamp: string,
     closed_at: string,
     files: object[],
-    user: object
+    user: any
   },
   statusDenunciation: {
     id: number,

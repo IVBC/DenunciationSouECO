@@ -28,7 +28,7 @@ export class DenuciationFindComponent implements OnInit {
         "denunciation": {
           "id": 1,
           "code": "6081b495",
-          "anonymous": true,
+          "anonymous": false,
           "urban": true,
           "type": "buraco negro",
           "description": "queimada,asdfasdfasd sdfgsdfg sdfg s dfgkjsbdkjfbgsn df sjdfkgos df sdfjglsdk sdfksgdfksdf çs dfhsdfçsd h sdfçlsdfksdf asdfasdfas asdfasdfadfsdf ff sger sdgadfd afdgd adfg  derrubada de floresta virgem e poluição do lago.",
