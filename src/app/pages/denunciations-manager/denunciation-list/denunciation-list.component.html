@@ -1,1 +1,51 @@
-<p>denunciation-list works!</p>
+<div class="card ">
+  <div class="card-body">
+
+     <p-table #dt [columns]="cols"  [paginator]="true" [rows]="8" [value]="DATA">
+        <ng-template pTemplate="caption">
+            <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter" style="width:auto"> <!-- (input)="dt.filterGlobal($event.target.value, 'contains')"-->
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <input *ngSwitchCase="'code'" pInputText type="text" style="width: 165px;" > <!--(input)="dt.filter($event.target.value, col.field, 'contains')"-->
+                    <div *ngSwitchCase="'year'">
+                        <!-- Value > {{yearFilter}} -->
+                        <i class="fa fa-close"  style="cursor:pointer" ></i> <!--(click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)"    *ngIf="yearFilter"-->
+                        <p-slider [style]="{'width':'100%','margin-top':'8px'}"  [min]="1970" [max]="2010" ></p-slider> [(ngModel)]="yearFilter"  (onChange)="onYearChange($event, dt)"-->
+                    </div>
+                    <p-dropdown  [options]="city" *ngSwitchCase="'city'" [style]="{'width':'100%'}" ></p-dropdown> <!--  (onChange)="dt.filter($event.value, col.field, 'equals')"-->
+                    <!-- <p-multiSelect  [options]="colors" *ngSwitchCase="'city', 'date'"  defaultLabel="All Colors" ></p-multiSelect>  (onChange)="dt.filter($event.value, col.field, 'in')"-->
+                    <!-- <input  pInputText type="text" placeholder="Custom - Greater Than" > *ngSwitchCase="'price'" (input)="dt.filter($event.target.value, col.field, 'custom')"-->
+                    <p-dropdown  [options]="type" *ngSwitchCase="'type'" [style]="{'width':'100%'}" ></p-dropdown>
+                    <p-dropdown  [options]="status" *ngSwitchCase="'status'" [style]="{'width':'100%'}" ></p-dropdown>
+                    <input *ngSwitchCase="'date'" pInputText type="text" style="width: 165px;" >
+                    <p-dropdown  [options]="state" *ngSwitchCase="'state'" [style]="{'width':'100%'}" ></p-dropdown>
+
+                    <div *ngSwitchCase="'action'" >
+                      <button style="display: flex; flex-direction: row;" type="button" class="btn btn-outline-primary">Vizualizar
+                        <i class="material-icons ml-2" >visibility</i>
+                      </button>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+      </p-table>
+  </div>
+</div>
+

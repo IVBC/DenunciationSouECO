@@ -9,12 +9,12 @@ const routes: Routes = [
   {
     path: '',
     component: DenunciationListComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: ':id',
     component: DenunciationFormComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   }
 ];
 

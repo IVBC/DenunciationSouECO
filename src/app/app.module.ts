@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import {AuthInterceptor} from './shared/authconfig.interceptor';
 import {ToastrModule} from 'ngx-toastr';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {ToastrModule} from 'ngx-toastr';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatTooltipModule,
     ToastrModule.forRoot(),
   ],
   providers: [
