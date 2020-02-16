@@ -1,4 +1,4 @@
-<div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%;">
+<div class="body-fetch d-flex justify-content-center align-items-center  pt-3" style="background-color: #e9f6fe; min-height: 100vh; width: 100%; flex-direction: column;">
   <div class="card shadow" style="width: 50rem; height: max-content;">
     <div class="card-body">
 
@@ -16,9 +16,12 @@
           <span style="font-size: 14px;">{{DATA[0].denunciation.timestamp | date: 'dd/MM/yyyy  h:mm a'}}</span>
         </div>
 
-        <div class="descript">
+        <div class="descript" >
           {{DATA[0].statusDenunciation.details}}
         </div>
+
+        <button matTooltipPosition="above"
+        matTooltip="Clique para iniciar Download do Protocolo" type="button" style="background: #058950; color: #fff;" class="btn btn-primary ml-3"> Download do Protocolo</button>
       </div>
 
       <hr>
@@ -131,43 +134,37 @@
             <div class="info-descript mt-2">
               <span style="color: #058950;">Descrição: </span> {{DATA[0].denunciation.description}}
              </div>
-
-
           </div>
-
-
-
         </div>
-
-
       </div>
-
-
-
-
-
-
-
-      <!-- <div class="info mb-3 d-flex justify-content-center  align-items-center" style="flex-direction: column;">
-        <span style="float: left;">ACOMPANHAMENTO</span>
-        <span style="float: left; font-size: 14px; color: #06894f;">Aqui você acompanha a situação da denúcia registrada</span>
-      </div> -->
-
-      <!-- <div class="input-group mb-3">
-
-        <input type="text" class="form-control" placeholder="Insira o código da denúcia" aria-label="denuncia" aria-describedby="basic-addon1">
-      </div> -->
-
-      <!-- <div class=" mb-2 d-flex justify-content-center  align-items-center" >
-        <button style="height: 40px;" type="button" class="btn-eco btn btn-block  btn-sm">Pesquisar</button>
-      </div> -->
-<!--
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">@</span>
-        </div>
-        <input type="password" class="form-control" placeholder="Senha" aria-label="Password" aria-describedby="basic-addon1">
-      </div> -->
     </div>
   </div>
+
+  <div class="card shadow mt-4 mb-4" style="width: 50rem; height: max-content;">
+    <p-table [columns]="cols" [value]="tableData">
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th *ngFor="let col of columns">
+                  {{col.header}}
+              </th>
+          </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+              <td *ngFor="let col of columns">
+                <div [ngClass]="setStatus(rowData[col.field])"  *ngIf="col.field == 'status'" style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex; ">
+                  <span style="float: left; font-weight: bold; position: relative; top: 2px;">{{textStatus}}</span >
+                </div>
+
+                <span *ngIf="col.field == 'dateinit' ">{{rowData[col.field ]}}</span>
+              </td>
+          </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+
+
+
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { complaint } from '../shared/ complaint.model';
+import { monitoring } from '../../denunciations-manager/denunciation-form/shared/monitoring.model';
 
 @Component({
   selector: 'app-denuciation-find',
@@ -16,8 +17,12 @@ export class DenuciationFindComponent implements OnInit {
 
   public DATA: complaint[] = [];
 
+  public textStatus: string;
+
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  tableData: monitoring[];
+  cols: any[];
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -81,12 +86,44 @@ export class DenuciationFindComponent implements OnInit {
 
       }];
       console.log(this.DATA[0]);
+
+    this.tableData = [
+      { status: 'SEND', dateinit: 'Status', dateend: 'asdfasdfasd' },
+      { status: 'IN_PROGRESS', dateinit: 'Status', dateend: 'asdfasdfasd' },
+      { status: 'FORWARDED', dateinit: 'Status', dateend: 'asdfasdfasd' },
+      { status: 'DONE', dateinit: 'Status', dateend: 'asdfasdfasd' },
+
+    ];
+
+
+    this.cols = [
+      { field: 'status', header: 'Status' },
+      { field: 'dateinit', header: 'Período' },
+
+    ];
     // this.firstFormGroup = this._formBuilder.group({
     //   firstCtrl: ['', Validators.required]
     // });
     // this.secondFormGroup = this._formBuilder.group({
     //   secondCtrl: ['', Validators.required]
     // });
+  }
+
+
+  public setStatus(p){
+    if(p == 'SEND'){
+      this.textStatus = 'Enviado';
+      return (this.textStatus, 'send' )
+    }else if(p == 'IN_PROGRESS'){
+      this.textStatus = 'Em Análise';
+      return (this.textStatus, 'progress' )
+    }else if(p == 'DONE'){
+      this.textStatus = 'Finalizado';
+      return (this.textStatus, 'done' )
+    }else if(p == 'FORWARDED'){
+      this.textStatus = 'Encaminhado';
+      return (this.textStatus, 'forwarded' )
+    }
   }
 
 }

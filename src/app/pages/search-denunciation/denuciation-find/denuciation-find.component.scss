@@ -146,6 +146,7 @@
 
 .descript{
   text-align: center;
+  width: 45%;
 }
 
 .info-descript{
@@ -177,6 +178,33 @@
   background: #efefef;
   height: max-content;
 }
+
+
+
+.send{
+  background: #0074a2 !important;
+  color:#fff;
+  text-align: center;
+}
+
+.progress{
+  background: #dd9933 !important;
+  color:#fff;
+  text-align: center
+}
+
+.done{
+  background: #81d742 !important;
+  color:#fff;
+  text-align: center
+}
+
+.forwarded{
+  background: #a01497 !important;
+  color:#fff;
+  text-align: center
+}
+
 
 
 // Extra small devices (portrait phones, less than 576px)
