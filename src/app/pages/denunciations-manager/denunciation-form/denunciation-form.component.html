@@ -1,1 +1,209 @@
-<p>denunciation-form works!</p>
+<div class="d-flex " style="background-color: #e9f6fe; min-height: 100vh; width: 100%; flex-direction: row;">
+  <div class="d-flex justify-content-center p-2" style="background-color: #058950; min-height: 100vh; width: 20%;     float: right; position: fixed; display: flex; flex-direction: column;">
+    <div style="width: 100% !important;
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column; padding: 5px;
+    background: #fff;
+    border-radius: 11px;">
+      <img class="mb-3" src="../../../../assets/images/logoTCE.png" alt="">
+
+
+      <mat-form-field class="">
+        <mat-label >Status da Denúncia:</mat-label>
+        <mat-select  (selectionChange)="analyzeOption($event.value)">
+          <mat-option *ngFor="let idx of status" [value]="idx.value">
+            {{idx.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="viewDescript" class="input-group mb-3" style="display: flex; flex-direction: column; height: 150px; ">
+        <span style="color: #058950;">Descrição:</span>
+        <textarea class="form-control" aria-label="With textarea" style="height: 150px; font-size: 15px; "></textarea>
+      </div>
+
+      <div *ngIf="viewUpload" class="input-group mb-3" style="display: flex; flex-direction: column; ">
+        <mat-label  style="color: #058950;">Protocolo:</mat-label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+          <label class="custom-file-label" for="inputGroupFile01">Adicione o protocolo</label>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary"
+      matTooltipPosition="above"
+      matTooltip="Clique para iniciar Download do Protocolo" type="button"
+      style="background: #058950; color: #fff;">Enviar</button>
+
+    </div>
+
+  </div>
+
+  <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 80%; float: left; flex-direction: column; left: 20%; position: relative;">
+    <div class="card shadow mt-3" style="width: 50rem; height: max-content;">
+      <div class="card-body">
+
+        <div class="status-denun mb-4">
+          <div class="div-img mr-4"   matTooltipPosition="above"
+            matTooltip="Clique para ir para a Localização da denúncia">
+            <a href="#">
+            <img class="img-loc" src="../../../../assets/images/logoMaps.png" alt="Ir Para Localização">
+            </a>
+          </div>
+
+          <div class="status-box">
+            <h5 style="color: #058950;">STATUS</h5>
+            <span style="font-size: 14px;">Denúncia: <a style="color: red; font-size: 14px;">{{DATA[0].denunciation.code}}</a> </span>
+            <span style="font-size: 14px;">{{DATA[0].denunciation.timestamp | date: 'dd/MM/yyyy  h:mm a'}}</span>
+          </div>
+
+          <div class="descript">
+            {{DATA[0].statusDenunciation.details}}
+          </div>
+        </div>
+
+        <hr>
+        <!-- <div class="logo-login mb-4"></div> -->
+
+        <mat-horizontal-stepper linear #stepper>
+          <mat-step>
+              <ng-template matStepLabel>Enviando</ng-template>
+          </mat-step>
+
+          <mat-step>
+              <ng-template matStepLabel>Enviado</ng-template>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Em Análise</ng-template>
+            <!-- <p>You are now done.</p>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div> -->
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Encaminhado</ng-template>
+            <!-- <p>You are now done.</p>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div> -->
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Finalizado</ng-template>
+            <!-- <p>You are now done.</p>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div> -->
+          </mat-step>
+        </mat-horizontal-stepper>
+
+        <div class="info-container d-flex justify-content-around">
+
+          <div class="box-column d-flex justify-content-center ">
+            <div class="item-box-column mb-3" style="height: max-content;">
+              <div class="title-box d-flex justify-content-center ">
+                <span class="title-info">Dados do Relator</span>
+              </div>
+
+              <div *ngIf="DATA[0].denunciation.anonymous" class="denuncia d-flex justify-content-left" style="color: red; text-align: center;">
+                Denúncia Anônima!
+              </div>
+
+              <div *ngIf="!DATA[0].denunciation.anonymous" class="relator d-flex justify-content-left">
+                <span class="info">{{DATA[0].denunciation.user.name}}</span>
+                <a class="info text-link" href="mailto:evaldopkscardoso@gmail.com" >{{DATA[0].denunciation.user.email}}</a>
+                <!-- <span class="info">evaldopkscardoso@gmail.com</span> -->
+                <span class="info">(92) {{DATA[0].denunciation.user.contac}}</span>
+              </div>
+            </div>
+
+            <div class="item-box-column mb-3" style="height: max-content;">
+              <div class="photos-container">
+                <div style="height: 100%;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img style="height: 200px;" class="d-block w-100" src="../../../../assets/teste/eco1.jpeg" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                      <img style="height: 200px;" class="d-block w-100" src="../../../../assets/teste/eco2.gif" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                      <img style="height: 200px;" class="d-block w-100" src="../../../../assets/teste/eco3.jpeg" alt="Third slide">
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-user">
+            <div class="title-box d-flex justify-content-center">
+              <span class="title-info">Informações da Denúncia</span>
+            </div>
+
+            <div  class="denuncia d-flex justify-content-left">
+              <span class="info">Área {{DATA[0].denunciation.urban ? 'Urbana' : 'Rural'}}</span>
+              <span class="info">{{DATA[0].denunciation.city}} - {{DATA[0].denunciation.state}}</span>
+              <span class="info" style="display: flex; flex-direction: row;">
+                <a class="text-link" href="#" matTooltipPosition="above"
+                matTooltip="Clique para ir para a Localização da denúncia">Rua {{DATA[0].denunciation.street}}, Nº {{DATA[0].denunciation.number}} - {{DATA[0].denunciation.district}} </a>
+                <i class="material-icons" style="font-size: 20px; margin-left: 5px;">place</i>
+              </span>
+              <span class="info">{{DATA[0].denunciation.zipcode}}</span>
+              <span class="info">Referência: {{DATA[0].denunciation.reference}}</span>
+
+              <div class="info-descript mt-2">
+              <span style="color: #058950;">Tipo: </span>  {{DATA[0].denunciation.type}}
+              </div>
+
+              <div class="info-descript mt-2">
+                <span style="color: #058950;">Descrição: </span> {{DATA[0].denunciation.description}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow mt-4 mb-4" style="width: 50rem; height: max-content; ">
+      <p-table [columns]="colsStatus" [value]="tableData">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                  <div [ngClass]="setStatus(rowData[col.field])"  *ngIf="col.field == 'status'" style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex; ">
+                    <span style="float: left; font-weight: bold; position: relative; top: 2px;">{{textStatus}}</span >
+                  </div>
+
+                  <span *ngIf="col.field == 'dateinit' ">{{rowData[col.field ]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+
+</div>
