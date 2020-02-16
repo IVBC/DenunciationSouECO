@@ -15,6 +15,15 @@ import { ToastModule } from "primeng/toast";
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [DenunciationListComponent, DenunciationFormComponent],
@@ -31,7 +40,17 @@ import { CodeHighlighterModule } from 'primeng/codehighlighter';
 		ToastModule,
 		InputTextModule,
 		TabViewModule,
-		CodeHighlighterModule
+    CodeHighlighterModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatSelectModule
+
   ]
 })
 export class DenunciationsManagerModule { }
