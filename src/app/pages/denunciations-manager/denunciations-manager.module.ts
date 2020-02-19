@@ -31,6 +31,7 @@ import {MatSelectModule} from '@angular/material/select';
     CommonModule,
     DenunciationsManagerRoutingModule,
     TableModule,
+    DialogModule,
 		SliderModule,
 		DialogModule,
 		MultiSelectModule,
