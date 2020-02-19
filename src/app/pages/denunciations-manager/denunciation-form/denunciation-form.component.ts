@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { complaint } from '../../search-denunciation/shared/ complaint.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { monitoring } from './shared/monitoring.model';
+import { tableManager } from './shared/table-manager.model';
 
 interface statusSelect {
   value: string;
@@ -16,10 +17,12 @@ interface statusSelect {
 export class DenunciationFormComponent implements OnInit {
 
   public DATA: complaint[] = [];
-  public tableData: monitoring[] = [];
+  public tableData: tableManager[] = [];
+  public selectedStatus: statusSelect;
   public textStatus: string;
-  public viewDescript: boolean = false;
+  // public viewDescript: boolean = false;
   public viewUpload: boolean = false;
+  public displayModal:boolean;
   public status: statusSelect[] = [
     {value: 'SEND', viewValue: 'Enviado'},
     {value: 'IN_PROGRESS', viewValue: 'Em Análise'},
@@ -102,17 +105,19 @@ export class DenunciationFormComponent implements OnInit {
 
 
       this.tableData = [
-        { status: 'SEND', dateinit: 'Status', dateend: 'asdfasdfasd' },
-        { status: 'IN_PROGRESS', dateinit: 'Status', dateend: 'asdfasdfasd' },
-        { status: 'FORWARDED', dateinit: 'Status', dateend: 'asdfasdfasd' },
-        { status: 'DONE', dateinit: 'Status', dateend: 'asdfasdfasd' },
+        { status: 'SEND', description:'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM' ,  file: 'asdfasdfasdf' },
+        { status: 'IN_PROGRESS',  description:'asdfasdfasdfasdf', period: 'De 22/22/2222 22:22AM a 22/22/2222 22:22AM',  file: 'asdfasdfasdf' },
+        { status: 'FORWARDED',description:'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',   file: 'asdfasdfasdf'},
+        { status: 'DONE', description:'asdfasdfasdfasdf' , period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',    file: 'asdfasdfasdf' },
 
       ];
 
 
       this.colsStatus = [
         { field: 'status', header: 'Status' },
-        { field: 'dateinit', header: 'Período' },
+        { field: 'description', header: 'Descrição' },
+        { field: 'period', header: 'Período' },
+        { field: 'file', header: 'Arquivos' },
 
       ];
 
@@ -132,30 +137,33 @@ export class DenunciationFormComponent implements OnInit {
   public setStatus(p){
     if(p == 'SEND'){
       this.textStatus = 'Enviado';
-      return (this.textStatus, 'send' )
+      return  'send'
     }else if(p == 'IN_PROGRESS'){
       this.textStatus = 'Em Análise';
-      return (this.textStatus, 'progress' )
+      return  'progress'
     }else if(p == 'DONE'){
       this.textStatus = 'Finalizado';
-      return (this.textStatus, 'done' )
+      return 'done'
     }else if(p == 'FORWARDED'){
       this.textStatus = 'Encaminhado';
-      return (this.textStatus, 'forwarded' )
+      return 'forwarded'
     }
   }
 
 
   analyzeOption(option){
-    if(option == 'DONE'){
-      this.viewDescript = true;
+    console.log(option)
+    if(option.value == 'DONE'){
+      // this.viewDescript = true;
       this.viewUpload = true;
-      return (this.viewDescript, this.viewUpload);
-    }else if(option == 'FORWARDED'){
-      this.viewDescript = true;
+    }else {
       this.viewUpload = false;
-      return (this.viewDescript, this.viewUpload);
+
     }
+  }
+
+  showBasicDialog() {
+    this.displayModal = true;
   }
 
 }
