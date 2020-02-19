@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { complaint } from '../shared/ complaint.model';
 import { monitoring } from '../../denunciations-manager/denunciation-form/shared/monitoring.model';
+import { tableManager } from '../../denunciations-manager/denunciation-form/shared/table-manager.model';
+
+interface statusSelect {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-denuciation-find',
@@ -16,13 +22,21 @@ import { monitoring } from '../../denunciations-manager/denunciation-form/shared
 export class DenuciationFindComponent implements OnInit {
 
   public DATA: complaint[] = [];
-
+  public tableData: tableManager[] = [];
+  public selectedStatus: statusSelect;
   public textStatus: string;
+  public viewUpload: boolean = false;
+  public status: statusSelect[] = [
+    {value: 'SEND', viewValue: 'Enviado'},
+    {value: 'IN_PROGRESS', viewValue: 'Em Análise'},
+    {value: 'FORWARDED', viewValue: 'Encaminhado'},
+    {value: 'DONE', viewValue: 'Finalizado'}
+  ];;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  tableData: monitoring[];
   cols: any[];
+  public colsStatus: any[];
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -87,14 +101,22 @@ export class DenuciationFindComponent implements OnInit {
       }];
       console.log(this.DATA[0]);
 
-    this.tableData = [
-      { status: 'SEND', dateinit: 'Status', dateend: 'asdfasdfasd' },
-      { status: 'IN_PROGRESS', dateinit: 'Status', dateend: 'asdfasdfasd' },
-      { status: 'FORWARDED', dateinit: 'Status', dateend: 'asdfasdfasd' },
-      { status: 'DONE', dateinit: 'Status', dateend: 'asdfasdfasd' },
+      this.tableData = [
+        { status: 'SEND', description:'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM' ,  file: 'asdfasdfasdf' },
+        { status: 'IN_PROGRESS',  description:'asdfasdfasdfasdf', period: 'De 22/22/2222 22:22AM a 22/22/2222 22:22AM',  file: 'asdfasdfasdf' },
+        { status: 'FORWARDED',description:'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',   file: 'asdfasdfasdf'},
+        { status: 'DONE', description:'asdfasdfasdfasdf' , period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',    file: 'asdfasdfasdf' },
 
-    ];
+      ];
 
+
+      this.colsStatus = [
+        { field: 'status', header: 'Status' },
+        { field: 'description', header: 'Descrição' },
+        { field: 'period', header: 'Período' },
+        { field: 'file', header: 'Arquivos' },
+
+      ];
 
     this.cols = [
       { field: 'status', header: 'Status' },
@@ -123,6 +145,18 @@ export class DenuciationFindComponent implements OnInit {
     }else if(p == 'FORWARDED'){
       this.textStatus = 'Encaminhado';
       return (this.textStatus, 'forwarded' )
+    }
+  }
+
+
+  analyzeOption(option){
+    console.log(option)
+    if(option.value == 'DONE'){
+      // this.viewDescript = true;
+      this.viewUpload = true;
+    }else {
+      this.viewUpload = false;
+
     }
   }
 

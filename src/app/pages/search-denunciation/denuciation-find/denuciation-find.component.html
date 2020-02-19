@@ -140,8 +140,8 @@
     </div>
   </div>
 
-  <div class="card shadow mt-4 mb-4" style="width: 50rem; height: max-content;">
-    <p-table [columns]="cols" [value]="tableData">
+  <div class="card shadow mt-4 mb-4" style="width: 95%; height: max-content; ">
+    <!-- <p-table [columns]="cols" [value]="tableData">
       <ng-template pTemplate="header" let-columns>
           <tr>
               <th *ngFor="let col of columns">
@@ -161,7 +161,49 @@
               </td>
           </tr>
       </ng-template>
-    </p-table>
+    </p-table> -->
+
+
+    <p-table #dt [columns]="colsStatus" styleClass="ui-table-cars" [value]="tableData"  >
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th *ngFor="let col of columns" [ngClass]="col.field" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                  {{col.header}}
+
+              </th>
+              <!-- <th style="width: 8em; text-align: center;">
+                  <button pButton type="button" icon="pi pi-plus"></button>
+              </th> -->
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+              <td>
+                <div [ngClass]="setStatus(rowData.status)"   style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex;  ">
+                  <span style="float: left; font-weight: bold; position: relative; top: 2px;">{{textStatus}}</span >
+                </div>
+              </td>
+              <td style="text-align: center;">{{rowData.description}}</td>
+              <td style="text-align: center;">
+                  <!-- <img src="assets/showcase/images/demo/car/{{rowData.brand}}.png" style="width: 50px; margin-right: 1em; vertical-align: middle;"> -->
+                 <p> {{rowData.period}}</p>
+              </td>
+              <td style="text-align: center;">
+                <div>
+                  <a style="float: left; background: #058950; height: 30px !important; display: flex; width: 80px;border-radius: 5px; text-align: center; justify-content: center; color: #fff;" href="http://localhost:4200/denunciations/22332">
+                  <span style=" position: relative; height: max-content; top: 4px;">Protocolo</span>
+                  </a>
+                </div>
+              </td>
+              <!-- <td style="text-align: center;">
+                  <button pButton type="button" (click)="showBasicDialog()" class="ui-button-success" icon="pi pi-pencil" style="margin-right: .5em"></button>
+                  <button pButton type="button" class="ui-button-danger" icon="pi pi-trash"></button>
+
+
+              </td> -->
+          </tr>
+      </ng-template>
+  </p-table>
   </div>
 
 
