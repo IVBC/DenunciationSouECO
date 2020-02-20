@@ -40,6 +40,10 @@ export class DenunciationListComponent implements OnInit {
           status: value.statesDenunciation[0].type
         };
       });
+      console.log(this.DATA);
+      this.setLabelDrop();
+      console.log(this.type);
+
     });
 
     // this.DATA = [
@@ -130,9 +134,6 @@ export class DenunciationListComponent implements OnInit {
     // ];
 
 
-    console.log(this.DATA);
-    this.setLabelDrop();
-    console.log(this.type);
 
 
     this.cols = [
@@ -148,14 +149,21 @@ export class DenunciationListComponent implements OnInit {
     }
 
     setLabelDrop() {
-      for (let i = 0; i < this.DATA.length; i++ ) {
+      const types = [ ... new Set(this.DATA.map(x => x.type))]
+      this.type = types.map(x => ({ label: x}));
 
-        this.type.push( {label: this.DATA[i].type});
-        this.city.push({label: this.DATA[i].city});
-        this.state.push({label: this.DATA[i].state});
-        this.date.push({label: this.DATA[i].date.toISOString()});
-        this.status.push({label: this.DATA[i].status});
-      }
+      const cities = [ ... new Set(this.DATA.map(x => x.city))]
+      this.city = cities.map(x => ({ label: x}));
+
+      const states = [ ... new Set(this.DATA.map(x => x.state))]
+      this.state = states.map(x => ({ label: x}));
+
+      const status = [ ... new Set(this.DATA.map(x => x.status))]
+      this.status = status.map(x => ({ label: x}));
+      //
+      // for (let i = 0; i < this.DATA.length; i++ ) {
+      //   this.date.push({label: this.DATA[i].date.toISOString()});
+      // }
       console.log('varialve type', this.type);
 
     }
