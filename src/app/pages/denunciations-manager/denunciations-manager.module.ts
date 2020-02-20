@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { DenunciationsManagerRoutingModule } from './denunciations-manager-routing.module';
 import { DenunciationListComponent } from './denunciation-list/denunciation-list.component';
 import { DenunciationFormComponent } from './denunciation-form/denunciation-form.component';
-import { TableModule } from "primeng/table";
-import { SliderModule } from "primeng/slider";
-import { DialogModule } from "primeng/dialog";
-import { MultiSelectModule } from "primeng/multiselect";
-import { ContextMenuModule } from "primeng/contextmenu";
-import { DropdownModule } from "primeng/dropdown";
-import { ButtonModule } from "primeng/button";
-import { ToastModule } from "primeng/toast";
+import { TableModule } from 'primeng/table';
+import { SliderModule } from 'primeng/slider';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
@@ -24,10 +24,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import { DenunciationsManagerComponent } from './denunciations-manager.component';
+import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
-  declarations: [DenunciationListComponent, DenunciationFormComponent, DenunciationsManagerComponent],
+  declarations: [DenunciationListComponent, DenunciationFormComponent, DenunciationsManagerComponent, ConfirmationDialogComponent],
   imports: [
     CommonModule,
     DenunciationsManagerRoutingModule,
@@ -51,8 +53,13 @@ import { DenunciationsManagerComponent } from './denunciations-manager.component
     FormsModule,
     MatTooltipModule,
     MatIconModule,
-    MatSelectModule
-
-  ]
+    MatSelectModule,
+    MatDialogModule
+  ],
+  exports: [
+    MatButtonModule,
+    MatDialogModule
+  ],
+  entryComponents: [ConfirmationDialogComponent],
 })
 export class DenunciationsManagerModule { }
