@@ -25,7 +25,9 @@
 }
 
 
-
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
 
 
 
@@ -181,6 +183,12 @@
 
 .send{
   background: #0074a2 !important;
+  color:#fff;
+  text-align: center;
+}
+
+.unsend {
+  background: #6b787d !important;
   color:#fff;
   text-align: center;
 }

@@ -28,7 +28,5 @@ export class Denunciation {
       createdAt: Date,
       updatedAt: Date
     }[]
-
-  ) {
-  }
+  ) {}
 }

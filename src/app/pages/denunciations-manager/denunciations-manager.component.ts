@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./denunciations-manager.component.scss']
 })
 export class DenunciationsManagerComponent implements OnInit {
+  public name = 'Carregando...';
 
   constructor(
     public authService: AuthService,
@@ -16,6 +17,9 @@ export class DenunciationsManagerComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    console.log(this.authService)
+    console.log(this.authService.currentUser.name)
+    this.name  = this.authService.currentUser.name;
   }
 
   signOut() {

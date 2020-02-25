@@ -26,6 +26,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { DenunciationsManagerComponent } from './denunciations-manager.component';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {CalendarModule} from 'primeng/calendar';
 
 
 @NgModule({
@@ -35,15 +36,15 @@ import {MatDialogModule} from '@angular/material/dialog';
     DenunciationsManagerRoutingModule,
     TableModule,
     DialogModule,
-		SliderModule,
-		DialogModule,
-		MultiSelectModule,
-		ContextMenuModule,
-		DropdownModule,
-		ButtonModule,
-		ToastModule,
-		InputTextModule,
-		TabViewModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ButtonModule,
+    ToastModule,
+    InputTextModule,
+    TabViewModule,
     CodeHighlighterModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -54,7 +55,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTooltipModule,
     MatIconModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    CalendarModule
   ],
   exports: [
     MatButtonModule,
