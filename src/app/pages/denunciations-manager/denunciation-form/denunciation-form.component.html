@@ -1,4 +1,4 @@
-<div class="d-flex " style="background-color: #e9f6fe; min-height: 100vh; width: 100%; flex-direction: row;">
+<div *ngIf="this.data" class="d-flex " style="background-color: #e9f6fe; min-height: 100vh; width: 100%; flex-direction: row;">
 
   <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%; float: left; flex-direction: column;  position: relative;">
     <div class="card shadow mt-3" style="width: 50rem; height: max-content;">
@@ -26,7 +26,7 @@
         <hr>
         <!-- <div class="logo-login mb-4"></div> -->
 
-        <mat-horizontal-stepper [selectedIndex]="currentStepper.selectedIndex"   linear #stepper>
+        <mat-horizontal-stepper *ngIf="loadingStepper" [selectedIndex]="currentStepper.selectedIndex"   linear #stepper>
           <ng-template *ngIf="currentStepper.selectedIndex == 4" matStepperIcon="number">
             <mat-icon >done</mat-icon>
           </ng-template>
@@ -82,8 +82,7 @@
 
               <div *ngIf="!data.denunciation.anonymous" class="relator d-flex justify-content-left">
                 <span class="info">{{data.denunciation.user.name}}</span>
-                <a class="info text-link" href="mailto:evaldopkscardoso@gmail.com" >{{data.denunciation.user.email}}</a>
-                <!-- <span class="info">evaldopkscardoso@gmail.com</span> -->
+                <a class="info text-link" href="{{'mailto:' + data.denunciation.user.email}}" >{{data.denunciation.user.email}}</a>
                 <span class="info">(92) {{data.denunciation.user.contact}}</span>
               </div>
             </div>
@@ -92,7 +91,7 @@
               <div class="photos-container">
                 <div style="height: 100%;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner">
-                    <div  *ngFor="let file of data.denunciation.files; let i = index" class="carousel-item active">
+                    <div  *ngFor="let file of data.denunciation.files; let i = index" class="carousel-item {{i?'': 'active'}}">
                       <img style="height: 200px;" class="d-block w-100" src="{{file.url}}" alt="{{file.name}}">
                     </div>
                     <!--                    <div class="carousel-item">-->
@@ -124,7 +123,7 @@
               <span class="info">Área {{data.denunciation.urban ? 'Urbana' : 'Rural'}}</span>
               <span class="info">{{data.denunciation.city}} - {{data.denunciation.state}}</span>
               <span class="info" style="display: flex; flex-direction: row;">
-                <a class="text-link" href="#" matTooltipPosition="above"
+                <a class="text-link"  target="_blank" href="{{'http://maps.google.com/?q='+ data.denunciation.latitude + ',' + data.denunciation.longitude}}" matTooltipPosition="above"
                    matTooltip="Clique para ir para a Localização da denúncia">Rua {{data.denunciation.street}}, Nº {{data.denunciation.number}} - {{data.denunciation.district}} </a>
                 <i class="material-icons" style="font-size: 20px; margin-left: 5px;">place</i>
               </span>
@@ -149,7 +148,7 @@
       <p-table #dt [columns]="colsStatus" styleClass="ui-table-cars" [value]="tableData"  >
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th *ngFor="let col of columns" [ngClass]="col.field" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+            <th *ngFor="let col of columns" [ngClass]="col.field" > <!-- [pSortableColumn]="col.field" [ngSwitch]="col.field" -->
               {{col.header}}
 
             </th>
@@ -160,17 +159,29 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-          <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr [pSelectableRow]="rowData" [pEditableRow]="rowData" >
             <td>
-              <div [ngClass]="setStatus(rowData.status)"   style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex;  ">
+              <div [ngClass]="setStatus(rowData.status)" matTooltipPosition="above"
+                   matTooltip="{{toolTipDescription(rowData.status)}}"  style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex;  ">
                 <span style="float: left; font-weight: bold; position: relative; top: 2px;">{{textStatus}}</span >
               </div>
             </td>
             <td style="text-align: center;">{{rowData.description}}</td>
             <td style="text-align: center;">
               <!-- <img src="assets/showcase/images/demo/car/{{rowData.brand}}.png" style="width: 50px; margin-right: 1em; vertical-align: middle;"> -->
-              <p> {{rowData.period}}</p>
+              <div class="row" >
+                <div class="col-6">
+                  <span style="font-weight: bold">Início: </span>
+                  <p> {{rowData.period[0]}}</p>
+                </div>
+                <div class="col-6">
+                  <span style="font-weight: bold" >Término: </span>
+                  <p> {{rowData.period[1]?rowData.period[1]: 'EM ABERTO'}}</p>
+                </div>
+              </div>
+
+
             </td>
             <td style="text-align: center;">
 
@@ -185,7 +196,7 @@
             </td>
             <td style="text-align: center;">
               <button pButton type="button" (click)="showBasicDialog(rowData)" class="ui-button-success" icon="pi pi-pencil" style="margin-right: .5em"></button>
-                                  <button pButton type="button" class="ui-button-danger" icon="pi pi-trash"></button>
+              <p-button icon="pi pi-trash"  styleClass="ui-button-danger" [disabled]="rowIndex==0 "  (onClick)="deleteStatus(rowData)" ></p-button>
             </td>
           </tr>
         </ng-template>
@@ -199,18 +210,18 @@
 
 
 
-<p-dialog header="Atualizando Status da Denúncia" [(visible)]="displayModal" [modal]="true" [style]="{width: '25vw'}" [baseZIndex]="10000">
+<p-dialog header="{{currentAction==='edit'? 'Atualizando': 'Novo'}} Status da Denúncia" [(visible)]="displayModal" [modal]="true" [style]="{width: '30vw'}" [baseZIndex]="10000">
   <!-- <div style="width: 250px !important; position: relative; display: flex; min-height: 400px; flex-direction: column; padding: 5px; background: #fff; border-radius: 11px;"> -->
-  <div style="min-height: 300px">
+  <div style="min-height: 400px">
     <img class=" img-fluid mb-3 mt-3 mr-2" src="../../../../assets/images/logoTCE.png" alt="">
-
-    <p-dropdown  [disabled]="this.currentAction === 'edit'" class="mr-1" [options]="status" [(ngModel)]="selectedStatus"  (onChange)="onSelect($event)" placeholder="Selecione o Status" optionLabel="viewValue" [showClear]="true"></p-dropdown>
+    <!-- this.currentAction === 'edit' -->
+    <p-dropdown  [disabled]="true" class="mr-1" [options]="status" [(ngModel)]="selectedStatus"  (onChange)="onSelect($event)" placeholder="Selecione o Status" optionLabel="viewValue" [showClear]="true"></p-dropdown>
 
     <div *ngIf="isValidSelect">
       <form [formGroup] = "statusForm" >
-        <div  class="input-group mb-3 mt-3" style="display: flex; flex-direction: column; height: 150px; ">
+        <div  class="input-group mb-3 mt-3" style="display: flex; flex-direction: column; height: 250px; ">
           <span style="color: #058950;">Descrição:</span>
-          <textarea class="form-control" aria-label="With textarea" formControlName="details" style="height: 150px; font-size: 15px; "></textarea>
+          <textarea class="form-control" aria-label="With textarea" formControlName="details" style="height: 250px; font-size: 15px; "></textarea>
         </div>
 
         <div *ngIf="viewUpload" class="input-group mb-3" style="display: flex; flex-direction: column; ">

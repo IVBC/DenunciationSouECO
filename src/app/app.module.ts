@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {AuthInterceptor} from './shared/authconfig.interceptor';
 import {ToastrModule} from 'ngx-toastr';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
       useClass: AuthInterceptor,
       multi: true
     },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

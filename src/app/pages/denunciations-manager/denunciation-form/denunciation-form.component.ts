@@ -1,11 +1,16 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {Complaint} from '../../search-denunciation/shared/ complaint.model';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { monitoring } from './shared/monitoring.model';
-import { tableManager } from './shared/table-manager.model';
+import {monitoring} from './shared/monitoring.model';
+import {tableManager} from './shared/table-manager.model';
 import {DenunciationService} from '../shared/services/denunciation.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
+import {ConfirmationDialogComponent, ConfirmDialogModel} from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DatePipe} from '@angular/common';
+import {MatStepper} from '@angular/material/stepper';
+import {ToastrService} from 'ngx-toastr';
 
 interface statusSelect {
   value: string;
@@ -35,9 +40,25 @@ export class DenunciationFormComponent implements OnInit {
   ];
 
   public idByStates = {
+    UNSEND: 1,
+    SEND: 2,
     IN_PROGRESS: 3,
     FORWARDED: 4,
     DONE: 5,
+  };
+  public statesById = {
+    1: 'UNSEND',
+    2: 'SEND',
+    3: 'IN_PROGRESS',
+    4: 'FORWARDED',
+    5: 'DONE',
+  };
+  public mapStatus = {
+    SEND: 'Enviado',
+    DONE: 'Finalizado',
+    UNSEND: 'Nao Enviado',
+    IN_PROGRESS: 'Em Análise',
+    FORWARDED: 'Encaminhada'
   };
 
 
@@ -45,7 +66,7 @@ export class DenunciationFormComponent implements OnInit {
   secondFormGroup: FormGroup;
   public cols: any[];
   public colsStatus: any[];
-  currentStepper: {selectedIndex: number, completed: boolean[]};
+  currentStepper: { selectedIndex: number, completed: boolean[] };
   isValidSelect: boolean;
   statusForm: FormGroup;
   private code: string;
@@ -55,11 +76,11 @@ export class DenunciationFormComponent implements OnInit {
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
   public fileName: string;
+  loadingStepper: boolean = false;
 
 
-
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private denunciationService: DenunciationService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private denunciationService: DenunciationService,
+              private changeDetectorRef: ChangeDetectorRef, public dialog: MatDialog, private datePipe: DatePipe, public toastrService: ToastrService) {
     this.statusForm = this.fb.group({
       state_id: [null, [Validators.required]],
       details: [null, [Validators.required, Validators.minLength(10)]],
@@ -96,10 +117,10 @@ export class DenunciationFormComponent implements OnInit {
     * */
 
 
-    this.route.paramMap.subscribe( params => {
+    this.route.paramMap.subscribe(params => {
       this.code = params.get('id');
       this.loadData();
-    })
+    });
 
 
     // this.data = {
@@ -160,27 +181,20 @@ export class DenunciationFormComponent implements OnInit {
     //   };
 
 
-
-
-    this.tableData = [
-        { status: 'SEND', description: 'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM' ,  file: 'asdfasdfasdf' },
-        { status: 'IN_PROGRESS',  description: 'asdfasdfasdfasdf', period: 'De 22/22/2222 22:22AM a 22/22/2222 22:22AM',  file: 'asdfasdfasdf' },
-        { status: 'FORWARDED', description: 'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',   file: 'asdfasdfasdf'},
-        { status: 'DONE', description: 'asdfasdfasdfasdf' , period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',    file: 'asdfasdfasdf' },
-
-      ];
+    // this.tableData = [
+    //     { status: 'SEND', description: 'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM' ,  file: 'asdfasdfasdf' },
+    //     { status: 'IN_PROGRESS',  description: 'asdfasdfasdfasdf', period: 'De 22/22/2222 22:22AM a 22/22/2222 22:22AM',  file: 'asdfasdfasdf' },
+    //     { status: 'FORWARDED', description: 'asdfasdfasdfasdf', period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',   file: 'asdfasdfasdf'},
+    //     { status: 'DONE', description: 'asdfasdfasdfasdf' , period: 'De 11/11/1111 22:22AM a 11/11/1111 22:22AM',    file: 'asdfasdfasdf' },
+    //   ];
 
 
     this.colsStatus = [
-        { field: 'status', header: 'Status' },
-        { field: 'description', header: 'Descrição' },
-        { field: 'period', header: 'Período' },
-        { field: 'file', header: 'Protocolo' },
-
-      ];
-
-
-
+      {field: 'status', header: 'Status'},
+      {field: 'description', header: 'Descrição'},
+      {field: 'period', header: 'Período'},
+      {field: 'file', header: 'Protocolo'},
+    ];
 
 
     // this.firstFormGroup = this._formBuilder.group({
@@ -193,15 +207,15 @@ export class DenunciationFormComponent implements OnInit {
 
 
   public setStatus(p) {
-    if(p == 'UNSEND') {
+    if (p == 'UNSEND') {
       this.textStatus = 'Não Enviada';
-      return  'unsend';
+      return 'unsend';
     } else if (p == 'SEND') {
       this.textStatus = 'Recebida';
-      return  'send';
+      return 'send';
     } else if (p == 'IN_PROGRESS') {
       this.textStatus = 'Em Análise';
-      return  'progress';
+      return 'progress';
     } else if (p == 'DONE') {
       this.textStatus = 'Finalizado';
       return 'done';
@@ -261,7 +275,15 @@ export class DenunciationFormComponent implements OnInit {
   }
 
   private setStatusStepper(step: number) {
+
     switch (step) {
+      case 0: {
+        this.currentStepper = {
+          selectedIndex: 0,
+          completed: [true, false, false, false, false]
+        };
+        break;
+      }
       case 1: {
         this.currentStepper = {
           selectedIndex: 1,
@@ -291,6 +313,11 @@ export class DenunciationFormComponent implements OnInit {
         break;
       }
     }
+    this.loadingStepper = false;
+    setTimeout(() => {
+      this.loadingStepper = true;
+    }, 100);
+    console.log(this.currentStepper);
   }
 
   openLink(file: any) {
@@ -298,20 +325,23 @@ export class DenunciationFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.denunciationService.updateStatus(this.data.denunciation.code, this.statusForm ).subscribe(ans => {
-      console.log(ans);
-      this.loadData();
-    },
+    console.log(this.data.denunciation.code, this.statusForm);
+    this.denunciationService.updateStatus(this.data.denunciation.code, this.statusForm).subscribe(ans => {
+        console.log(ans);
+        this.toastrService.success('Status Atualizado com sucesso !');
+        this.loadData();
+      },
       error => {
-      console.log(error);
+        this.toastrService.error('Erro ao atualizar o Status. Por favor, tente novamente.', 'Falha na comunicação com o Servidor.');
+        console.log(error);
       }
-      );
+    );
     this.displayModal = false;
   }
 
   uploadFile($event: Event) {
     const file = ($event.target as HTMLInputElement).files[0];
-    console.log(file)
+    console.log(file);
     this.fileName = file.name;
     this.statusForm.patchValue({
       file
@@ -322,21 +352,26 @@ export class DenunciationFormComponent implements OnInit {
 
   private loadData() {
     this.denunciationService.getByCode(this.code).subscribe(ans => {
-      console.log(ans);
+
       if (ans) {
         this.data = ans;
-        this.changeDetectorRef.detectChanges();
+        // this.changeDetectorRef.detectChanges();
+        console.log(this.data);
         if (ans.historyDenunciation) {
           this.tableData = ans.historyDenunciation.map(value => ({
             status: value.stateDenunciation.type,
             description: value.details,
             file: value.file ? value.file.url : null,
-            period: 'de  12/22/22 23:22 PM as 14/22/22 24:22 PM' })
-          );
+            period: [this.datePipe.transform(new Date(value.createdAt), 'dd/MM/yy hh:mm a'),
+              value.closed_at ? this.datePipe.transform(new Date(value.closed_at), 'dd/MM/yy hh:mm a') : null]
+          }));
         }
+        // `De ${this.datePipe.transform(new Date(value.createdAt), 'dd/MM/yy hh:mm a')}
+        //              às ${this.datePipe.transform(new Date(value.closed_at), 'dd/MM/yy hh:mm a')}`
+        console.log(this.data.statusDenunciation.state_id - 1);
+        this.setStatusStepper(this.data.statusDenunciation.state_id - 1);
       }
 
-      this.setStatusStepper(this.data.statusDenunciation.state_id - 1);
     });
   }
 
@@ -349,8 +384,8 @@ export class DenunciationFormComponent implements OnInit {
   }
 
   onSelect(seila) {
-    const findStatus = this.data.historyDenunciation.find(value => value.stateDenunciation.type === this.selectedStatus.value );
-    console.log(findStatus)
+    const findStatus = this.data.historyDenunciation.find(value => value.stateDenunciation.type === this.selectedStatus.value);
+    console.log(findStatus);
     if (findStatus) {
       this.statusForm.patchValue({
         state_id: this.idByStates[this.selectedStatus.value],
@@ -365,5 +400,39 @@ export class DenunciationFormComponent implements OnInit {
     } else {
       this.analyzeOption(this.selectedStatus);
     }
+  }
+
+  deleteStatus(rowData) {
+    console.log(rowData);
+    const idStatus = this.idByStates[rowData.status];
+    const newStatus = this.statesById[idStatus - 1];
+
+    const message = `Você tem certeza que deseja apagar o status de "${this.mapStatus[rowData.status]}"? O Status será redefinido para o anterior, ou seja, "${this.mapStatus[newStatus]}" e todas as informaçoes posteriores serão perdidas.`;
+
+    const dialogData = new ConfirmDialogModel('Confirmação', message);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        console.log(dialogResult);
+        this.denunciationService.deleteStatus(this.data.denunciation.code, idStatus).subscribe(ans => {
+          this.toastrService.success('O Status foi removido e atualizado com sucesso!');
+          this.loadData();
+
+        }, error => {
+          console.log(error);
+          this.toastrService.error('Nao foi possível remover o Status. Por favor, tente novamente.', 'Falha na comunição com o Servidor');
+        });
+      }
+    });
+  }
+
+  toolTipDescription(status: number | string) {
+    const obj = this.data.historyDenunciation.find(value => this.statesById[value.state_id] === status);
+    return obj.stateDenunciation.description;
   }
 }

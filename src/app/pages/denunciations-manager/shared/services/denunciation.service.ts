@@ -26,6 +26,18 @@ export class DenunciationService {
     );
   }
 
+  deleteStatus(code: string, stateId: number): Observable<Response>{
+    return this.http.delete(`${this.api}/denunciations/${code}`, {
+        params: {
+          state_id: stateId.toString()
+        },
+        observe: 'response'
+      }).pipe(
+      catchError(this.handleError),
+      map(() => null)
+    );
+  }
+
 
   // getData(id: string, init: string, final: string, y1: string, y2: string, y3: string): Observable<(any | number)[]> {
   //   const url = `${this.api}/gateway/devices/${id}&${init}&${final}&${y1}&${y2}&${y3}`;
