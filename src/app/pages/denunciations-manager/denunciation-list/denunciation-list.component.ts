@@ -35,14 +35,16 @@ export class DenunciationListComponent implements OnInit {
   public status: SelectItem[] = [];
   public cols: any[];
 
+  public alert: {status: boolean, type?: 'EMPTY' | 'ERROR_REQUEST'};
+  public loading: boolean = false;
 
   public textStatus: string;
   public mapStatus = {
-    SEND: 'Enviado',
-    DONE: 'Finalizado',
-    UNSEND: 'Nao Enviado',
-    IN_PROGRESS: 'Em Análise',
-    FORWARDED: 'Encaminhada'
+    SEND: 'RECEBIDA',
+    DONE: 'FINALIZADA',
+    UNSEND: 'NÃO ENVIADA',
+    IN_PROGRESS: 'EM ANÁLISE',
+    FORWARDED: 'ENCAMINHADA'
   };
 
     // onYearChange(event, dt) {
@@ -58,7 +60,7 @@ export class DenunciationListComponent implements OnInit {
   en: any;
 
   ngOnInit() {
-
+    this.alert = {status: false};
     FilterUtils['custom'] = (value: Date, filter: Date): boolean => {
       console.log(value, filter)
       if (filter === undefined || filter === null) {
@@ -85,114 +87,31 @@ export class DenunciationListComponent implements OnInit {
       weekHeader: 'Wk'
     };
 
+    this.loading = true;
     this.denunciationService.getAll().subscribe(denunciations => {
+      this.loading = false;
       console.log(denunciations);
-      this.DATA = denunciations.map(value => {
-        return {
-          id: value.id,
-          code: value.code,
-          type: value.type,
-          date: value.createdAt,
-          city: value.city,
-          state: value.state,
-          status: value.statesDenunciation[0].type
-        };
-      });
-      console.log(this.DATA);
-      this.setLabelDrop();
-      console.log(this.type);
-
+      if (denunciations.length) {
+        this.alert = {status: false};
+        this.DATA = denunciations.map(value => {
+          return {
+            id: value.id,
+            code: value.code,
+            type: value.type,
+            date: value.createdAt,
+            city: value.city,
+            state: value.state,
+            status: value.statesDenunciation[0].type
+          };
+        });
+        this.setLabelDrop();
+      } else {
+        this.alert = {status: true, type: 'EMPTY'};
+      }
+    }, error => {
+      this.loading = false;
+      this.alert = {status: true, type: 'ERROR_REQUEST'}
     });
-
-    // this.DATA = [
-    //   {
-    //     id: 1,
-    //     code: '1321316',
-    //     type: 'buraco negro',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Manaus',
-    //     state: 'Amazonas',
-    //     status: 'SEND'
-    //   },
-    //   {
-    //     id: 2,
-    //     code: '353455543',
-    //     type: 'buraco black',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Manaus',
-    //     state: 'Amazonas',
-    //     status: 'IN_PROGRESS'
-    //   },
-    //   {
-    //     id: 3,
-    //     code: '3453453',
-    //     type: 'queimada negra',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Maués',
-    //     state: 'Amazonas',
-    //     status: 'FORWARDED'
-    //   },
-    //   {
-    //     id: 4,
-    //     code: '345345',
-    //     type: 'black hole',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Manaus',
-    //     state: 'Amazonas',
-    //     status: 'DONE'
-    //   },
-    //   {
-    //     id: 5,
-    //     code: '53793783',
-    //     type: 'fenda negra',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Alenquer',
-    //     state: 'Para',
-    //     status: 'DONE'
-    //   },
-    //   {
-    //     id: 6,
-    //     code: '53793783',
-    //     type: 'teste',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Lisboa',
-    //     state: 'Para',
-    //     status: 'FORWARDED'
-    //   },
-    //   {
-    //     id: 7,
-    //     code: '53793783',
-    //     type: 'fenda negra',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'santarem',
-    //     state: 'Para',
-    //     status: 'DONE'
-    //   },
-    //   {
-    //     id: 8,
-    //     code: '53793783',
-    //     type: 'fenda negra',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Alenquer',
-    //     state: 'Para',
-    //     status: 'IN_PROGRESS'
-    //
-    //   },
-    //   {
-    //     id: 9,
-    //     code: '53793783',
-    //     type: 'fenda negra',
-    //     date: '2020-02-01T18:06:11.608Z',
-    //     city: 'Alenquer',
-    //     state: 'Para',
-    //     status: 'SEND'
-    //
-    //   },
-    //
-    // ];
-
-
-
 
     this.cols = [
       { field: 'code', header: 'Código' },
@@ -234,16 +153,16 @@ export class DenunciationListComponent implements OnInit {
 
     public setStatus(p) {
       if (p == 'SEND') {
-        this.textStatus = 'Enviado';
+        this.textStatus = 'RECEBIDA';
         return (this.textStatus, 'send' );
       } else if (p == 'IN_PROGRESS') {
-        this.textStatus = 'Em Análise';
+        this.textStatus = 'EM ANÁLISE';
         return (this.textStatus, 'progress' );
       } else if (p == 'DONE') {
-        this.textStatus = 'Finalizado';
+        this.textStatus = 'FINALIZADA';
         return (this.textStatus, 'done' );
       } else if (p == 'FORWARDED') {
-        this.textStatus = 'Encaminhado';
+        this.textStatus = 'ENCAMINHADA';
         return (this.textStatus, 'forwarded' );
       }
     }
