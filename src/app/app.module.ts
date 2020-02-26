@@ -10,6 +10,7 @@ import {AuthInterceptor} from './shared/authconfig.interceptor';
 import {ToastrModule} from 'ngx-toastr';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {DatePipe} from '@angular/common';
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {DatePipe} from '@angular/common';
     HttpClientModule,
     MatTooltipModule,
     ToastrModule.forRoot(),
+    NgxGalleryModule
   ],
   providers: [
     {

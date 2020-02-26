@@ -27,6 +27,7 @@ import { DenunciationsManagerComponent } from './denunciations-manager.component
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CalendarModule} from 'primeng/calendar';
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {CalendarModule} from 'primeng/calendar';
     MatIconModule,
     MatSelectModule,
     MatDialogModule,
-    CalendarModule
+    CalendarModule,
+    NgxGalleryModule
   ],
   exports: [
     MatButtonModule,

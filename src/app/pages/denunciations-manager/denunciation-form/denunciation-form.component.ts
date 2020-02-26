@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DatePipe} from '@angular/common';
 import {MatStepper} from '@angular/material/stepper';
 import {ToastrService} from 'ngx-toastr';
+import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from '@kolkov/ngx-gallery';
 
 interface statusSelect {
   value: string;
@@ -74,22 +75,68 @@ export class DenunciationFormComponent implements OnInit {
   currentAction: string;
   pageTitle: string;
   serverErrorMessages: string[] = null;
-  submittingForm: boolean = false;
+  submittingForm = false;
   public fileName: string;
-  loadingStepper: boolean = false;
+  loadingStepper = false;
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
+  public loading: boolean = false;
 
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private denunciationService: DenunciationService,
               private changeDetectorRef: ChangeDetectorRef, public dialog: MatDialog, private datePipe: DatePipe, public toastrService: ToastrService) {
-    this.statusForm = this.fb.group({
-      state_id: [null, [Validators.required]],
-      details: [null, [Validators.required, Validators.minLength(10)]],
-      file: [null]
-    });
-
   }
 
   ngOnInit() {
+    this.buildForm();
+    this.setFileValidators();
+    this.galleryOptions = [
+      {thumbnails: false},
+      {
+        width: '600px',
+        height: '400px',
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide
+      },
+      // max-width 800
+      {
+        breakpoint: 800,
+        width: '100%',
+        height: '600px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20
+      },
+      // max-width 400
+      {
+        breakpoint: 400,
+        preview: false
+      }
+    ];
+
+    this.galleryImages = [
+      {
+        small: 'http://localhost:3333/files/c4d6a3048faa0b74002fd1b53d899f14.jpeg',
+        medium: 'http://localhost:3333/files/c4d6a3048faa0b74002fd1b53d899f14.jpeg',
+        big: 'http://localhost:3333/files/c4d6a3048faa0b74002fd1b53d899f14.jpeg'
+      },
+      {
+        small: 'https://preview.ibb.co/kPE1D6/clouds.jpg',
+        medium: 'https://preview.ibb.co/kPE1D6/clouds.jpg',
+        big: 'https://preview.ibb.co/kPE1D6/clouds.jpg'
+      },
+      {
+        small: 'https://preview.ibb.co/mwsA6R/img7.jpg',
+        medium: 'https://preview.ibb.co/mwsA6R/img7.jpg',
+        big: 'https://preview.ibb.co/mwsA6R/img7.jpg'
+      },{
+        small: 'https://preview.ibb.co/kZGsLm/img8.jpg',
+        medium: 'https://preview.ibb.co/kZGsLm/img8.jpg',
+        big: 'https://preview.ibb.co/kZGsLm/img8.jpg'
+      },
+    ];
+
     /* Status de Enviado
     * this.currentStepper = {
       selectedIndex: 1,
@@ -205,6 +252,29 @@ export class DenunciationFormComponent implements OnInit {
     // });
   }
 
+  buildForm() {
+    this.statusForm = this.fb.group({
+      state_id: [null, [Validators.required]],
+      details: [null, [Validators.required, Validators.minLength(60)]],
+      file: [null]
+    });
+  }
+
+
+  setFileValidators() {
+    const fileControl = this.statusForm.get('file');
+    this.statusForm.get('state_id').valueChanges
+      .subscribe(stateId => {
+
+        if (stateId === 5) {
+          fileControl.setValidators([Validators.required]);
+        } else {
+          fileControl.setValidators(null);
+        }
+        fileControl.updateValueAndValidity();
+      });
+  }
+
 
   public setStatus(p) {
     if (p == 'UNSEND') {
@@ -266,6 +336,7 @@ export class DenunciationFormComponent implements OnInit {
       });
       this.analyzeOption(this.selectedStatus);
     } else {
+      this.statusForm.reset();
       this.currentAction = 'new';
       this.selectedStatus = this.status[this.data.historyDenunciation.length];
       this.analyzeOption(this.selectedStatus);
@@ -325,18 +396,23 @@ export class DenunciationFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
+
     console.log(this.data.denunciation.code, this.statusForm);
     this.denunciationService.updateStatus(this.data.denunciation.code, this.statusForm).subscribe(ans => {
         console.log(ans);
+        this.loading = false;
         this.toastrService.success('Status Atualizado com sucesso !');
         this.loadData();
+        this.displayModal = false;
       },
       error => {
+        this.loading = false;
         this.toastrService.error('Erro ao atualizar o Status. Por favor, tente novamente.', 'Falha na comunicação com o Servidor.');
         console.log(error);
       }
     );
-    this.displayModal = false;
+
   }
 
   uploadFile($event: Event) {
@@ -355,6 +431,9 @@ export class DenunciationFormComponent implements OnInit {
 
       if (ans) {
         this.data = ans;
+
+        this.galleryImages = this.data.denunciation.files.map(value => ({small: value.url, medium: value.url, big: value.url }));
+
         // this.changeDetectorRef.detectChanges();
         console.log(this.data);
         if (ans.historyDenunciation) {
