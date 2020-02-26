@@ -1,3 +1,9 @@
+<nav class="mb5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/search">Pesquisar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Detalhes da Denúncia</li>
+  </ol>
+</nav>
 <div *ngIf="this.data" class="d-flex " style="background-color: #e9f6fe; min-height: 100vh; width: 100%; flex-direction: row;">
 
   <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%; float: left; flex-direction: column;  position: relative;">
@@ -24,9 +30,9 @@
         </div>
 
         <hr>
-        <!-- <div class="logo-login mb-4"></div> -->
 
-        <mat-horizontal-stepper [selectedIndex]="currentStepper.selectedIndex"   linear #stepper>
+
+        <mat-horizontal-stepper *ngIf="loadingStepper" [selectedIndex]="currentStepper.selectedIndex"   linear #stepper>
           <ng-template *ngIf="currentStepper.selectedIndex == 4" matStepperIcon="number">
             <mat-icon >done</mat-icon>
           </ng-template>
@@ -41,29 +47,17 @@
 
           <mat-step  [completed]="currentStepper.completed[2]" [editable]="false" >
             <ng-template matStepLabel>Em Análise</ng-template>
-            <!-- <p>You are now done.</p>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-            </div> -->
+
           </mat-step>
 
           <mat-step [completed]="currentStepper.completed[3]" [editable]="false" >
             <ng-template matStepLabel>Encaminhada</ng-template>
-            <!-- <p>You are now done.</p>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-            </div> -->
+
           </mat-step>
 
           <mat-step [completed]="currentStepper.completed[4]"   [editable]="false" >
             <ng-template matStepLabel>Finalizada</ng-template>
-            <!-- <p>You are now done.</p>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-            </div> -->
+
           </mat-step>
 
         </mat-horizontal-stepper>
@@ -88,28 +82,9 @@
             </div>
 
             <div class="item-box-column mb-3" style="height: max-content;">
+
               <div class="photos-container">
-                <div style="height: 100%;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <div  *ngFor="let file of data.denunciation.files; let i = index" class="carousel-item active">
-                      <img style="height: 200px;" class="d-block w-100" src="{{file.url}}" alt="{{file.name}}">
-                    </div>
-                    <!--                    <div class="carousel-item">-->
-                    <!--                      <img style="height: 200px;" class="d-block w-100" src="../../../../assets/teste/eco2.gif" alt="Second slide">-->
-                    <!--                    </div>-->
-                    <!--                    <div class="carousel-item">-->
-                    <!--                      <img style="height: 200px;" class="d-block w-100" src="../../../../assets/teste/eco3.jpeg" alt="Third slide">-->
-                    <!--                    </div>-->
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
               </div>
             </div>
           </div>
@@ -148,13 +123,8 @@
       <p-table #dt [columns]="colsStatus" styleClass="ui-table-cars" [value]="tableData"  >
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th *ngFor="let col of columns" [ngClass]="col.field" > <!-- [pSortableColumn]="col.field" [ngSwitch]="col.field" -->
+            <th *ngFor="let col of columns" [ngClass]="col.field" >
               {{col.header}}
-
-            </th>
-            <th style="width: 8em; text-align: center;">
-
-              <p-button icon="pi pi-plus" [disabled]="data.statusDenunciation.state_id === 5"  (onClick)="showBasicDialog(null)" label="Novo Status"></p-button>
 
             </th>
           </tr>
@@ -169,7 +139,7 @@
             </td>
             <td style="text-align: center;">{{rowData.description}}</td>
             <td style="text-align: center;">
-              <!-- <img src="assets/showcase/images/demo/car/{{rowData.brand}}.png" style="width: 50px; margin-right: 1em; vertical-align: middle;"> -->
+
               <div class="row" >
                 <div class="col-6">
                   <span style="font-weight: bold">Início: </span>
@@ -185,19 +155,11 @@
             </td>
             <td style="text-align: center;">
 
-              <!--                    <a style="float: left; background: #058950; height: 30px !important; display: flex; width: 120px;border-radius: 5px; text-align: center; justify-content: center; color: #fff;" target="_blank" href="{{rowData.file}}">-->
-              <!--                      <mat-icon aria-hidden="false" aria-label="Example home icon">archive</mat-icon>-->
-              <!--                    <span style=" position: relative; height: max-content; top: 4px;">Protocolo</span>-->
-
-              <!--                    </a>-->
               <p-button icon="pi pi-file-pdf" [disabled]="!rowData.file"  (onClick)=" openLink(rowData.file)" label="Download"></p-button>
 
 
             </td>
-            <td style="text-align: center;">
-              <button pButton type="button" (click)="showBasicDialog(rowData)" class="ui-button-success" icon="pi pi-pencil" style="margin-right: .5em"></button>
-              <p-button icon="pi pi-trash"  styleClass="ui-button-danger" [disabled]="rowIndex==0 "  (onClick)="deleteStatus(rowData)" ></p-button>
-            </td>
+
           </tr>
         </ng-template>
       </p-table>
@@ -207,39 +169,3 @@
 
 </div>
 
-
-
-
-<p-dialog header="Atualizando Status da Denúncia" [(visible)]="displayModal" [modal]="true" [style]="{width: '25vw'}" [baseZIndex]="10000">
-  <!-- <div style="width: 250px !important; position: relative; display: flex; min-height: 400px; flex-direction: column; padding: 5px; background: #fff; border-radius: 11px;"> -->
-  <div style="min-height: 300px">
-    <img class=" img-fluid mb-3 mt-3 mr-2" src="../../../../assets/images/logoTCE.png" alt="">
-    <!-- this.currentAction === 'edit' -->
-    <p-dropdown  [disabled]="true" class="mr-1" [options]="status" [(ngModel)]="selectedStatus"  (onChange)="onSelect($event)" placeholder="Selecione o Status" optionLabel="viewValue" [showClear]="true"></p-dropdown>
-
-    <div *ngIf="isValidSelect">
-      <form [formGroup] = "statusForm" >
-        <div  class="input-group mb-3 mt-3" style="display: flex; flex-direction: column; height: 150px; ">
-          <span style="color: #058950;">Descrição:</span>
-          <textarea class="form-control" aria-label="With textarea" formControlName="details" style="height: 150px; font-size: 15px; "></textarea>
-        </div>
-
-        <div *ngIf="viewUpload" class="input-group mb-3" style="display: flex; flex-direction: column; ">
-          <mat-label  style="color: #058950;">Protocolo:</mat-label>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="uploadFile($event)" aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">{{fileName? fileName: 'Anexar o protocolo'}}</label>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div *ngIf="!isValidSelect && selectedStatus">
-      <h2> É necessário atualizar os status anteriores para acrescentar este status. </h2>
-    </div>
-  </div>
-  <!-- </div> -->
-  <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="onSubmit()" label="Enviar"></button>
-    <button type="button" pButton icon="pi pi-times" (click)="cancelSubmit()" label="Cancelar" class="ui-button-secondary"></button>
-  </p-footer>
-</p-dialog>

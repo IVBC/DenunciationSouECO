@@ -25,7 +25,9 @@
 }
 
 
-
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
 
 
 
@@ -146,7 +148,6 @@
 
 .descript{
   text-align: center;
-  width: 45%;
 }
 
 .info-descript{
@@ -180,17 +181,18 @@
 }
 
 
-
 .send{
   background: #0074a2 !important;
   color:#fff;
   text-align: center;
 }
+
 .unsend {
-  background: #0074a2 !important;
+  background: #6b787d !important;
   color:#fff;
   text-align: center;
 }
+
 .progress{
   background: #dd9933 !important;
   color:#fff;
@@ -208,9 +210,6 @@
   color:#fff;
   text-align: center
 }
-
-
-
 
 .status{
   width: 155px !important;
@@ -232,7 +231,6 @@
   width: 285px !important;
   text-align: center;
 }
-
 
 
 

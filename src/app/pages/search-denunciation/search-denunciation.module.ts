@@ -13,7 +13,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
 import { Zipcode } from '../shared/pipes/zipcodePipe';
 import { Phone } from '../shared/pipes/phonePipe';
-import { TableModule } from "primeng/table";
+import { TableModule } from 'primeng/table';
 import { SliderModule } from 'primeng/slider';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -23,6 +23,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabViewModule } from 'primeng/tabview';
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 
 
 
@@ -35,30 +36,31 @@ import { TabViewModule } from 'primeng/tabview';
     Phone
 
   ],
-  imports: [
-    CommonModule,
-    SearchDenunciationRoutingModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatTooltipModule,
-    MatIconModule,
-    TableModule,
-		SliderModule,
-		DialogModule,
-		MultiSelectModule,
-		ContextMenuModule,
-		DropdownModule,
-		ButtonModule,
-		ToastModule,
-		InputTextModule,
-		TabViewModule,
+    imports: [
+        CommonModule,
+        SearchDenunciationRoutingModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatTooltipModule,
+        MatIconModule,
+        TableModule,
+        SliderModule,
+        DialogModule,
+        MultiSelectModule,
+        ContextMenuModule,
+        DropdownModule,
+        ButtonModule,
+        ToastModule,
+        InputTextModule,
+        TabViewModule,
+        NgxGalleryModule,
 
 
-    // MatLabel
-  ]
+        // MatLabel
+    ]
 })
 export class SearchDenunciationModule { }

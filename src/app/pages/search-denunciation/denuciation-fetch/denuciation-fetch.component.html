@@ -7,16 +7,27 @@
         <span style="float: left;">ACOMPANHAMENTO</span>
         <span style="float: left; font-size: 14px; color: #06894f;">Aqui você acompanha a situação da denúcia registrada</span>
       </div>
-
+      <form [formGroup]="form">
+        <div class="text-danger" *ngIf="form.get('code').invalid && form.get('code').touched">
+          <div *ngIf="form.get('code').errors.required"> Dado Obrigatório </div>
+        </div>
       <div class="input-group mb-3">
         <!-- <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">@</span>
         </div> -->
-        <input type="text" class="form-control" placeholder="Insira o código da denúcia" aria-label="denuncia" aria-describedby="basic-addon1">
+
+        <input type="text" class="form-control" formControlName="code" placeholder="Insira o código da denúcia" aria-label="denuncia" aria-describedby="basic-addon1">
       </div>
 
+      </form>
+
       <div class=" mb-2 d-flex justify-content-center  align-items-center" >
-        <button style="height: 40px;" type="button" class="btn-eco btn btn-block  btn-sm">Pesquisar</button>
+        <button  [disabled]="loading || form.invalid" style="height: 40px;" (click)="onSubmit()" class="btn-eco btn btn-block  btn-sm">
+          <div *ngIf="loading" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <span *ngIf="!loading"> Pesquisar</span>
+        </button>
       </div>
 <!--
       <div class="input-group mb-3">

@@ -11,10 +11,12 @@ import {ToastrModule} from 'ngx-toastr';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {DatePipe} from '@angular/common';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
