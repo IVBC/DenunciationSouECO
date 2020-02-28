@@ -48,10 +48,15 @@
 
 .status-denun{
   width: 100%;
-  height: 60px;
+  height: max-content;
   display: flex;
   flex-direction: row;
 
+}
+
+.cardDenun{
+  width: 50rem;
+  height: max-content;
 }
 
 .status-box{
@@ -148,6 +153,7 @@
 
 .descript{
   text-align: center;
+  width: 65%;
 }
 
 .info-descript{
@@ -234,6 +240,8 @@
 
 
 
+
+
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
 
@@ -247,14 +255,110 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991.98px) {
 
+  th.description.ng-star-inserted {
+    width: 140px !important;
+  }
+
+  .periodresp{
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .period {
+    width: 130px !important;
+    text-align: center;
+  }
+
+  .file {
+    width: 140px !important;
+    text-align: center;
+  }
+
+
+  .cardDenun{
+    width: 43rem;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199.98px) {
+
+  th.description.ng-star-inserted {
+    width: 140px !important;
+  }
+
+  .periodresp{
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .period {
+    width: 130px !important;
+    text-align: center;
+  }
+
+  .file {
+    width: 140px !important;
+    text-align: center;
+  }
+
+
+  .cardDenun{
+    width: 57rem;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
 
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
 
+  th.description.ng-star-inserted {
+    width: 140px !important;
+  }
+
+  .periodresp{
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .period {
+    width: 130px !important;
+    text-align: center;
+  }
+
+  .file {
+    width: 140px !important;
+    text-align: center;
+  }
+
+
+  .cardDenun{
+    width: 57rem;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+
 }
+
+@media (min-width: 1920px) {
+  h5#stausText {
+    font-size: 25px;
+  }
+
+  .cardDenun{
+    width: 70rem;
+    height: max-content;
+  }
+}
+

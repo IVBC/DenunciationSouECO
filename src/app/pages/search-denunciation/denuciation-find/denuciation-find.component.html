@@ -7,7 +7,7 @@
 <div *ngIf="this.data" class="d-flex " style="background-color: #e9f6fe; min-height: 100vh; width: 100%; flex-direction: row;">
 
   <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%; float: left; flex-direction: column;  position: relative;">
-    <div class="card shadow mt-3" style="width: 50rem; height: max-content;">
+    <div class="card shadow mt-3 cardDenun" >
       <div class="card-body">
 
         <div class="status-denun mb-4">
@@ -19,7 +19,7 @@
           </div>
 
           <div class="status-box">
-            <h5 style="color: #058950;">STATUS</h5>
+            <h5  id="stausText" style="color: #058950;">STATUS</h5>
             <span style="font-size: 14px;">Denúncia: <a style="color: red; font-size: 14px;">{{data.denunciation.code}}</a> </span>
             <span style="font-size: 14px;">{{data.denunciation.timestamp | date: 'dd/MM/yyyy  h:mm a'}}</span>
           </div>
@@ -141,11 +141,11 @@
             <td style="text-align: center;">
 
               <div class="row" >
-                <div class="col-6">
+                <div class="col-6 col-md-12 col-lg-6 col-xl-6" >
                   <span style="font-weight: bold">Início: </span>
                   <p> {{rowData.period[0]}}</p>
                 </div>
-                <div class="col-6">
+                <div class="col-6 col-md-12 col-lg-6 col-xl-6">
                   <span style="font-weight: bold" >Término: </span>
                   <p> {{rowData.period[1]?rowData.period[1]: 'EM ABERTO'}}</p>
                 </div>

@@ -1,3 +1,15 @@
+::ng-deep{
+
+  .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+    min-width: 365px;
+}
+
+
+}
+
+
+
+
 .send{
   background: #0074a2 !important;
   color:#fff;
@@ -24,7 +36,139 @@
 
 
 
-
 body{
   background-color: #e8f5fd !important;
 }
+
+
+.div-spin{
+  padding: 10px;
+
+}
+
+
+
+
+@media (max-width: 575.98px) {
+
+  ::ng-deep{
+
+    input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+      width: 178px  !important;
+    }
+
+    .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+        min-width: 365px !important;
+    }
+  }
+
+  .visible-text-button {
+    display: none;
+  }
+
+ }
+
+
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+  ::ng-deep{
+
+    input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+      width: 178px  !important;
+    }
+
+    .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+        min-width: 365px !important;
+    }
+
+  }
+
+  .visible-text-button {
+    display: none;
+  }
+
+
+ }
+
+
+
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+  :host ::ng-deep{
+
+    input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+      width: 100%  !important;
+    }
+
+    .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+        min-width: 365px !important;
+    }
+
+  }
+  .visible-text-button {
+    display: none;
+  }
+
+
+
+ }
+
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+  :host ::ng-deep{
+
+    input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+      width: 100%  !important;
+    }
+
+    .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+        min-width: 365px !important;
+    }
+  }
+
+  button.btn.btn-outline-primary.ng-star-inserted {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+ }
+
+
+@media (min-width: 1200px) {
+  :host ::ng-deep{
+
+    input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+      width: 100%  !important;
+    }
+
+    .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+        min-width: 365px !important;
+    }
+
+  }
+
+ }
+
+
+ @media (min-width: 1360px) {
+
+  ::ng-deep{
+
+    input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+      width: 100%  !important;
+    }
+
+    .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+        min-width: 365px !important;
+    }
+
+  }
+
+}
+
+
+
+

@@ -92,12 +92,14 @@ export class DenunciationService {
   }
 
   updateStatus(code: string, statusForm: FormGroup): Observable<any> {
+    console.log(code, statusForm );
     const formData: any = new FormData();
     formData.append('state_id', statusForm.get('state_id').value);
     formData.append('details', statusForm.get('details').value);
     formData.append('file', statusForm.get('file').value);
     console.log(`${this.api}/denunciations/${code}`);
-    console.log(formData);
+    console.log(formData.get('state_id'));
+    console.log(formData.get('details'));
     return this.http.put(`${this.api}/denunciations/${code}`, formData).pipe(
       timeout(120000),
       catchError(this.handleError),

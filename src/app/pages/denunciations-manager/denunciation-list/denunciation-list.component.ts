@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { complaintList, label } from '../shared/ complaint-list.model';
 import {DenunciationService} from '../shared/services/denunciation.service';
 import {FilterUtils} from 'primeng/utils';
@@ -19,7 +19,8 @@ export interface SelectItem {
 @Component({
   selector: 'app-denunciation-list',
   templateUrl: './denunciation-list.component.html',
-  styleUrls: ['./denunciation-list.component.scss']
+  styleUrls: ['./denunciation-list.component.scss'],
+  // encapsulation: ViewEncapsulation.Native
 })
 export class DenunciationListComponent implements OnInit {
   public pt: { dateFormat: string; firstDayOfWeek: number; today: string; clear: string; dayNames: string[]; dayNamesMin: string[]; dayNamesShort: string[]; monthNamesShort: string[]; monthNames: string[]; weekHeader: string };
@@ -87,31 +88,7 @@ export class DenunciationListComponent implements OnInit {
       weekHeader: 'Wk'
     };
 
-    this.loading = true;
-    this.denunciationService.getAll().subscribe(denunciations => {
-      this.loading = false;
-      console.log(denunciations);
-      if (denunciations.length) {
-        this.alert = {status: false};
-        this.DATA = denunciations.map(value => {
-          return {
-            id: value.id,
-            code: value.code,
-            type: value.type,
-            date: value.createdAt,
-            city: value.city,
-            state: value.state,
-            status: value.statesDenunciation[0].type
-          };
-        });
-        this.setLabelDrop();
-      } else {
-        this.alert = {status: true, type: 'EMPTY'};
-      }
-    }, error => {
-      this.loading = false;
-      this.alert = {status: true, type: 'ERROR_REQUEST'}
-    });
+    this.requestData();
 
     this.cols = [
       { field: 'code', header: 'Código' },
@@ -149,6 +126,37 @@ export class DenunciationListComponent implements OnInit {
       console.log('varialve type', this.type);
 
     }
+
+    public requestData(){
+      this.loading = true;
+      this.denunciationService.getAll().subscribe(denunciations => {
+        this.loading = false;
+        console.log(denunciations);
+        if (denunciations.length) {
+          this.alert = {status: false};
+          this.DATA = denunciations.map(value => {
+            return {
+              id: value.id,
+              code: value.code,
+              type: value.type,
+              date: value.createdAt,
+              city: value.city,
+              state: value.state,
+              status: value.statesDenunciation[0].type
+            };
+          });
+          this.setLabelDrop();
+        } else {
+          this.alert = {status: true, type: 'EMPTY'};
+        }
+      }, error => {
+        this.loading = false;
+        this.alert = {status: true, type: 'ERROR_REQUEST'}
+        // console.log('ERRRRRRRRRORR REQUEST', this.alert);
+      });
+    }
+
+
 
 
     public setStatus(p) {
