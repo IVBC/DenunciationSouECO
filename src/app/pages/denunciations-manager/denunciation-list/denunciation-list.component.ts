@@ -3,6 +3,7 @@ import { complaintList, label } from '../shared/ complaint-list.model';
 import {DenunciationService} from '../shared/services/denunciation.service';
 import {FilterUtils} from 'primeng/utils';
 import {Router} from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 
 export interface SelectItem {
@@ -26,6 +27,10 @@ export class DenunciationListComponent implements OnInit {
   public pt: { dateFormat: string; firstDayOfWeek: number; today: string; clear: string; dayNames: string[]; dayNamesMin: string[]; dayNamesShort: string[]; monthNamesShort: string[]; monthNames: string[]; weekHeader: string };
 
   constructor( public router: Router, private denunciationService: DenunciationService) { }
+
+
+  dateCalendar = new FormControl(new Date());
+  serializedDate = new FormControl((new Date()).toISOString());
 
   public DATA: complaintList[] = [];
   public code: label[] = [];

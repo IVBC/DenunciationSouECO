@@ -12,6 +12,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {DatePipe} from '@angular/common';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 import { HomeComponent } from './pages/home/home.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { HomeComponent } from './pages/home/home.component';
     HttpClientModule,
     MatTooltipModule,
     ToastrModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
   ],
   providers: [
     {

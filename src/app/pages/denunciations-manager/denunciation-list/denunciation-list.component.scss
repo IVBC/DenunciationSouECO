@@ -35,6 +35,27 @@
 }
 
 
+.cleaner{
+  top: 14px;
+  position: relative;
+  transition: .4s;
+}
+
+.cleaner{
+  top: 14px;
+  position: relative;
+  transition: .4s;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cleaner:hover{
+  font-size: 25px;
+  // transform: scale(1);
+}
+
+
+
 
 body{
   background-color: #e8f5fd !important;

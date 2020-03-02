@@ -17,7 +17,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatInputModule, MatInput } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -28,6 +28,7 @@ import { ConfirmationDialogComponent } from './shared/components/confirmation-di
 import {MatDialogModule} from '@angular/material/dialog';
 import {CalendarModule} from 'primeng/calendar';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -58,6 +59,8 @@ import {NgxGalleryModule} from '@kolkov/ngx-gallery';
     MatSelectModule,
     MatDialogModule,
     CalendarModule,
+    MatTooltipModule,
+    MatDatepickerModule,
     NgxGalleryModule
   ],
   exports: [
