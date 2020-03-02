@@ -20,7 +20,7 @@ export interface SelectItem {
   selector: 'app-denunciation-list',
   templateUrl: './denunciation-list.component.html',
   styleUrls: ['./denunciation-list.component.scss'],
-  // encapsulation: ViewEncapsulation.Native
+
 })
 export class DenunciationListComponent implements OnInit {
   public pt: { dateFormat: string; firstDayOfWeek: number; today: string; clear: string; dayNames: string[]; dayNamesMin: string[]; dayNamesShort: string[]; monthNamesShort: string[]; monthNames: string[]; weekHeader: string };

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  URL_API: 'http://206.189.194.249' // http://localhost:3333' // http://206.189.194.249
+  URL_API: window["env"]["apiUrl"] || "default",
+  debug: window["env"]["debug"] || false // http://localhost:3333' // http://206.189.194.249
 };
 
 /*

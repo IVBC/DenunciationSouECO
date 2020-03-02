@@ -2,9 +2,9 @@ version: '2.1'
 
 services:
   soueco:
-    image: soueco
+    image: cmssoueco
     build: .
-    # environment:
-    #   NODE_ENV: production
+    environment:
+      - API_URL=http://206.189.194.249
     ports:
       - 8081:80
