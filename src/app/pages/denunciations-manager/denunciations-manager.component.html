@@ -19,7 +19,8 @@ width: 100%;
     <div style="width: 150px; height: max-content; display: table;
     justify-content: right;" >
       <span style="font-weight: bolder; font-size: 20px; width: max-content; float: right;">{{name}}</span>
-      <a style="color: #717171;  width: max-content; float: right;" href="#">Meu Perfil</a>
+      <a class="perfil" matTooltipPosition="above"
+         matTooltip="Visualizar Perfil" (click)="dialogUser()">Meu Perfil</a>
     </div>
 
     <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"

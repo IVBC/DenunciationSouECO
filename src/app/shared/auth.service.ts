@@ -13,7 +13,7 @@ import {environment} from '../../environments/environment';
 export class AuthService {
   endpoint = environment.URL_API;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  public currentUser: any;
+  public currentUser: User;
 
   constructor(
     private http: HttpClient,
@@ -42,6 +42,17 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('access_token');
+  }
+
+  getUser() {
+    const userStr = localStorage.getItem('user')
+    if (userStr) {
+      const user: User = JSON.parse(userStr) ;
+      this.currentUser = user;
+    } else {
+      this.doLogout();
+    }
+    return this.currentUser;
   }
 
   get isLoggedIn(): boolean {
@@ -85,6 +96,7 @@ export class AuthService {
   private jsonDataToUser = (jsonData: any): User => {
     console.log('AuthService.jsonDataToUser() => ', jsonData);
     localStorage.setItem('access_token', jsonData.token)
+    localStorage.setItem('user', JSON.stringify(jsonData.user));
     const output = jsonData.user as User;
     this.currentUser = output;
 

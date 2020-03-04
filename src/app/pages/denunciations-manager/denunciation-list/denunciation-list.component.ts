@@ -4,6 +4,8 @@ import {DenunciationService} from '../shared/services/denunciation.service';
 import {FilterUtils} from 'primeng/utils';
 import {Router} from '@angular/router';
 import { FormControl } from '@angular/forms';
+import {DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter} from '@angular/material/core';
+import {APP_DATE_FORMATS, AppDateAdapter} from '../../../shared/utils/format-date';
 
 
 export interface SelectItem {
@@ -21,7 +23,15 @@ export interface SelectItem {
   selector: 'app-denunciation-list',
   templateUrl: './denunciation-list.component.html',
   styleUrls: ['./denunciation-list.component.scss'],
+  providers: [
 
+    {
+      provide: DateAdapter, useClass: AppDateAdapter
+    },
+    {
+      provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS
+    }
+  ]
 })
 export class DenunciationListComponent implements OnInit {
   public pt: { dateFormat: string; firstDayOfWeek: number; today: string; clear: string; dayNames: string[]; dayNamesMin: string[]; dayNamesShort: string[]; monthNamesShort: string[]; monthNames: string[]; weekHeader: string };

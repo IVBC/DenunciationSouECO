@@ -1,0 +1,22 @@
+<h1 mat-dialog-title style="text-align: center;">
+  Meu Perfil
+</h1>
+
+<div mat-dialog-content>
+  <div style="width: 100%; display: flex; flex-direction: row; text-align: center; justify-content: space-around;">
+
+    <div class="box-setting">
+      <span style="font-weight: bolder; color: #0061a8;">Administrador</span>
+      <span>Nome: <b>{{user.name}}</b></span>
+      <span>Email: <b>{{user.email}}</b></span>
+      <span>Departamento: <b>{{user.department}}</b></span>
+      <span>Contato: <b>{{user.contact}}</b></span>
+    </div>
+
+  </div>
+</div>
+
+<div mat-dialog-actions style="justify-content: flex-end;">
+<!--  <button mat-button  (click)="onDismiss()">Não</button>-->
+  <button mat-raised-button color="primary" (click)="onConfirm()">Fechar</button>
+</div>

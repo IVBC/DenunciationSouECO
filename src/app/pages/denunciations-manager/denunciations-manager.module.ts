@@ -29,10 +29,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {CalendarModule} from 'primeng/calendar';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { UserDialogComponent } from './shared/components/user-dialog/user-dialog.component';
 
 
 @NgModule({
-  declarations: [DenunciationListComponent, DenunciationFormComponent, DenunciationsManagerComponent, ConfirmationDialogComponent],
+  declarations: [DenunciationListComponent, DenunciationFormComponent, DenunciationsManagerComponent, ConfirmationDialogComponent, UserDialogComponent],
   imports: [
     CommonModule,
     DenunciationsManagerRoutingModule,

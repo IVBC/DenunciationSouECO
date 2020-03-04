@@ -1,20 +1,26 @@
 <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%;">
-  <div class="card shadow mr-5" style="width: 28rem; height: max-content; cursor: pointer" (click)="select('search')">
+  <div class="card item shadow mr-5" style="width: 28rem; height: max-content; cursor: pointer" (click)="select('search')">
     <div class="card-body">
       <div class="logo-login mb-4"></div>
 
       <div class="info mb-3 d-flex justify-content-center  align-items-center" style="flex-direction: column;">
-        <span style="float: left;">SOU ECO</span>
-        <span style="float: left; font-size: 14px; color: #06894f;">Consultar Denúncia</span>
+        <i class="material-icons mb-2" style="font-size: 4em;">
+          event_note
+        </i>
+        <span style="float: left;">Denúncias - Sou Eco</span>
+        <span style="float: left; font-size: 14px; color: #06894f;">Consulte aqui sua denúncia pelo código!</span>
       </div>
 
     </div>
   </div>
-  <div class="card shadow" style="width: 28rem; height: max-content; cursor: pointer "  (click)="select('manager')">
+  <div class="card item shadow" style="width: 28rem; height: max-content; cursor: pointer "  (click)="select('manager')">
     <div class="card-body">
       <div class="logo-login mb-4"></div>
 
       <div class="info mb-3 d-flex justify-content-center  align-items-center" style="flex-direction: column;">
+        <i class="material-icons mb-2" style="font-size: 4em;">
+          desktop_mac
+        </i>
         <span style="float: left;">CMS</span>
         <span style="float: left; font-size: 14px; color: #06894f;">Sistema de Gerenciamento de Denúncias - TCE</span>
       </div>

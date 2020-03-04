@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../shared/auth.service';
-import {ConfirmationDialogComponent, ConfirmDialogModel} from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import {
+  ConfirmationDialogComponent,
+  ConfirmDialogModel,
+  DialogUserModel
+} from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {User} from '../../shared/user';
+import {UserDialogComponent} from './shared/components/user-dialog/user-dialog.component';
 
 @Component({
   selector: 'app-denunciations-manager',
@@ -10,6 +16,7 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class DenunciationsManagerComponent implements OnInit {
   public name = 'Carregando...';
+  private user: User;
 
   constructor(
     public authService: AuthService,
@@ -17,9 +24,11 @@ export class DenunciationsManagerComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+    this.user = this.authService.getUser();
+    this.name  = this.user.name;
     console.log(this.authService)
     console.log(this.authService.currentUser.name)
-    this.name  = this.authService.currentUser.name;
   }
 
   signOut() {
@@ -41,5 +50,22 @@ export class DenunciationsManagerComponent implements OnInit {
         this.signOut();
       }
     });
+  }
+
+  dialogUser() {
+      const user = this.user;
+      const dialogData = new DialogUserModel(user.name, user.department, user.contact, user.email, user.administrator );
+      const dialogRef = this.dialog.open(UserDialogComponent, {
+        maxWidth: '500px',
+        data: dialogData
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if (dialogResult) {
+          // this.signOut();
+        }
+      });
+
+
   }
 }

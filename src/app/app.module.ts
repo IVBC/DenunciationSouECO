@@ -14,11 +14,13 @@ import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 import { HomeComponent } from './pages/home/home.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

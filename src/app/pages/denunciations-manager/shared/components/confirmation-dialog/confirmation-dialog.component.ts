@@ -35,3 +35,14 @@ export class ConfirmDialogModel {
   constructor(public title: string, public message: string) {
   }
 }
+
+export class DialogUserModel {
+  constructor(
+    public name: string,
+    public department: string,
+    public contact: string,
+    public email: string,
+    public administrator: boolean
+    ) {
+  }
+}

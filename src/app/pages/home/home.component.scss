@@ -1,0 +1,11 @@
+.item:hover {
+  //width: 33.5em !important;
+  //height: 13.4em !important;
+  background-color: #e6ebf2;
+}
+
+.item {
+  transition-property: width, height, background-color;
+  transition-duration: 0.4s;
+}
+

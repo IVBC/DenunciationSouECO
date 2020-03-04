@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './pages/home/home.component';
+import {PrivacyPolicyComponent} from './pages/privacy-policy/privacy-policy.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/souEco', pathMatch: 'full' },
   {path: 'souEco', component: HomeComponent},
+  {path: 'privacy', component: PrivacyPolicyComponent},
   {
     path: 'login',
     loadChildren: () => import('./pages/sign/sign.module').then(m => m.SignModule)

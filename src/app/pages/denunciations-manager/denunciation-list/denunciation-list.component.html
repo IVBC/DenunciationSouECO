@@ -6,7 +6,7 @@
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
 
-                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <input type="text" pInputText size="50" placeholder="Filtro Geral" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
                <!-- -->
             </div>
         </ng-template>
@@ -56,14 +56,14 @@
 
                       <div style="width: 100%; display: flex; flex-direction: row; height: 40px;">
 
-                        <mat-form-field *ngSwitchCase="'date'" style="width: 85%;">
-                          <mat-label>Selecione uma Data</mat-label>
-                          <input (click)="picker1.open()" matInput [matDatepicker]="picker1" [formControl]="dateCalendar">
+                        <mat-form-field *ngSwitchCase="'date'" [ngStyle]="{width: dateSeach?'85%':'100%'}" >
+                          <mat-label>Dia</mat-label>
+                          <input autocomplete="off" (click)="picker1.open()" (dateChange)="onSelectDateFilter($event, col, dt)" matInput [matDatepicker]="picker1" [(ngModel)]="dateSeach" [formControl]="dateCalendar">
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
 
-                        <i  matTooltipPosition="above" matTooltip="Limpar Data" class="material-icons cleaner ml-2" >close</i>
+                        <i *ngIf="dateSeach"  matTooltipPosition="above" matTooltip="Limpar Data" class="material-icons cleaner ml-2"  (click)="onClearClick(col, dt); dateSeach=null;">close</i>
 
                       </div>
 

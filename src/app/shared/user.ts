@@ -4,4 +4,6 @@ export class User {
   email: string;
   password?: string;
   administrator: boolean;
+  department: string;
+  contact: string;
 }
