@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center align-items-center mb-3" style="
+<!-- <div class="d-flex justify-content-center align-items-center mb-3" style="
 width: 100%;
     height: 72px;
     background: linear-gradient(to top right, #e9f5fd, #e9f5fd);
@@ -28,7 +28,43 @@ width: 100%;
   </div>
 
 
-</div>
+</div> -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3" style=" background: linear-gradient(to top right, #e9f5fd, #e9f5fd);  box-shadow: 0px 1px 15px -4px grey;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <img id="logoMobile"   src="../assets/images/logoSouECO.png" alt="">
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <img id="logoeco" style="width: 420px; height: 70px; border-radius: 50px; padding: 0px 30px 0px 30px"  src="../assets/images/logoSouECO.png" alt="">
+    <h4 id="h4title" style="margin: 0; height: max-content; color: #ffffff;">DENÚNCIAS - APP SOU ECO!</h4>
+  
+    <div id="logout" style="display: flex; flex-direction: row;">
+      <div style="width: 150px; height: max-content; display: table;
+      justify-content: right;" >
+        <span style="font-weight: bolder; font-size: 20px; width: max-content; float: right;">{{name}}</span>
+        <a class="perfil" matTooltipPosition="above"
+           matTooltip="Visualizar Perfil" (click)="dialogUser()">Meu Perfil</a>
+      </div>
+  
+      <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"
+         matTooltip="Clique para encerrar sessão" class="material-icons ml-3" (click)="confirmDialog()">exit_to_app</i>
+    </div>
+
+
+    <ul id="menuList" class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" (click)="dialogUser()">Meu Perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" (click)="confirmDialog()">Logout</a>
+      </li>
+    </ul>
+  </div>
+
+  
+</nav>
 
 <div class="content">
   <router-outlet></router-outlet>

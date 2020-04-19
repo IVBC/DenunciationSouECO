@@ -43,15 +43,6 @@
                       </select>
                     </div>
 
-
-
-                    <!-- <p-dropdown  [options]="city" *ngSwitchCase="'city'" style="width:40% !important;" (onChange)="dt.filter($event.target.value, col.field, 'contains')"></p-dropdown>
-
-                    <p-dropdown  [options]="type" *ngSwitchCase="'type'"  (onChange)="dt.filter($event.target.value, col.field, 'contains')" ></p-dropdown>
-                    <p-dropdown  [options]="status" *ngSwitchCase="'status'"  (onChange)="dt.filter($event.target.value, col.field, 'contains')"></p-dropdown> -->
-
-                    <!-- <p-calendar *ngSwitchCase="'date'" (onClearClick)="onClearClick(col, dt)" (onSelect)="onSelectDateFilter($event, col, dt)" showButtonBar="true" [locale]="pt"  [(ngModel)]="dateSeach"></p-calendar> -->
-
                     <div  *ngSwitchCase="'date'"  >
 
                       <div style="width: 100%; display: flex; flex-direction: row; height: 40px;">
@@ -68,8 +59,6 @@
                       </div>
 
                     </div>
-<!--
-                    <p-dropdown  [options]="state" *ngSwitchCase="'state'"  (onChange)="dt.filter($event.target.value, col.field, 'contains')" ></p-dropdown> -->
 
                     <div class="form-group mb-0" *ngSwitchCase="'status'" (change)="dt.filter($event.target.value, col.field, 'contains')">
                       <select class="form-control" id="exampleFormControlSelect1">
@@ -124,11 +113,6 @@
                     <i class="material-icons  " >visibility</i>
                   </button>
 
-
-<!--
-                  <span  >asdfasdfasdf</span> -->
-<!--
-                    {{rowData[col.field ]}} -->
                 </td>
 
             </tr>
