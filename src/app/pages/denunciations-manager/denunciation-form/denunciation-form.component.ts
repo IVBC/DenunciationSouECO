@@ -255,7 +255,7 @@ export class DenunciationFormComponent implements OnInit {
   buildForm() {
     this.statusForm = this.fb.group({
       state_id: [null, [Validators.required]],
-      details: [null, [Validators.required, Validators.minLength(60)]],
+      details: [null, [Validators.required, Validators.minLength(20)]],
       file: [null]
     });
   }

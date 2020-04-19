@@ -1,7 +1,7 @@
 <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%;">
   <div class="card shadow" style="width: 28rem; height: max-content;">
     <div class="card-body">
-      <div class="logo-login mb-4"></div>
+      <div class="logo-login mb-4" (click)="toHome()" matTooltip="Página Inicial"></div>
 
       <div class="info mb-3 d-flex justify-content-center  align-items-center" style="flex-direction: column;">
         <span style="float: left;">ACOMPANHAMENTO</span>
@@ -9,7 +9,7 @@
       </div>
       <form [formGroup]="form">
         <div class="text-danger" *ngIf="form.get('code').invalid && form.get('code').touched">
-          <div *ngIf="form.get('code').errors.required"> Dado Obrigatório </div>
+          <div *ngIf="form.get('code').errors.required"> Campo obrigatório </div>
         </div>
       <div class="input-group mb-3">
         <!-- <div class="input-group-prepend">
@@ -22,7 +22,7 @@
       </form>
 
       <div class=" mb-2 d-flex justify-content-center  align-items-center" >
-        <button  [disabled]="loading || form.invalid" style="height: 40px;" (click)="onSubmit()" class="btn-eco btn btn-block  btn-sm">
+        <button  [disabled]="loading || form.invalid" matTooltip="Click aqui para iniciar a pesquisa" style=" height: 40px;" (click)="onSubmit()" class="btn-eco btn btn-block  btn-sm">
           <div *ngIf="loading" class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
           </div>
