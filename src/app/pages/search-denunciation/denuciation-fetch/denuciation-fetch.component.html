@@ -1,11 +1,11 @@
 <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%;">
-  <div class="card shadow" style="width: 28rem; height: max-content;">
+  <div id="search" class="card shadow" style="width: 28rem; height: max-content;">
     <div class="card-body">
       <div class="logo-login mb-4"></div>
 
       <div class="info mb-3 d-flex justify-content-center  align-items-center" style="flex-direction: column;">
         <span style="float: left;">ACOMPANHAMENTO</span>
-        <span style="float: left; font-size: 14px; color: #06894f;">Aqui você acompanha a situação da denúcia registrada</span>
+        <span class="decript" style="float: left; font-size: 14px; color: #06894f;">Aqui você acompanha a situação da denúcia registrada</span>
       </div>
       <form [formGroup]="form">
         <div class="text-danger" *ngIf="form.get('code').invalid && form.get('code').touched">

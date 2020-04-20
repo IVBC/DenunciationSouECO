@@ -4,7 +4,7 @@
     <li class="breadcrumb-item active" aria-current="page">Detalhes da Denúncia</li>
   </ol>
 </nav>
-<div *ngIf="this.data" class="d-flex " style="background-color: #e9f6fe; min-height: 100vh; width: 100%; flex-direction: row;">
+<div *ngIf="this.data" class="d-flex box-eco" >
 
   <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%; float: left; flex-direction: column;  position: relative;">
     <div class="card shadow mt-3 cardDenun" >
@@ -120,7 +120,7 @@
 
     <div class="card shadow mt-4 mb-4" style="width: 95%; height: max-content; ">
 
-      <p-table #dt [columns]="colsStatus" styleClass="ui-table-cars" [value]="tableData"  >
+      <p-table #dt [columns]="colsStatus" [value]="tableData" [responsive]="true" >
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns" [ngClass]="col.field" >

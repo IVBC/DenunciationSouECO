@@ -279,10 +279,77 @@
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
 
+
+  ::ng-deep{
+    .mat-horizontal-stepper-header-container {
+      white-space: nowrap !important;
+      display: flex !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+    }
+
+    .ng-trigger.ng-trigger-animation.ng-tns-c144-0.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable.ui-dialog-resizable.ng-star-inserted {
+    width: 80vw !important;
+    z-index: 11001 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    }
+  }
+
+  .cardDenun {
+    width: 24rem;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+
+  .info-container.d-flex.justify-content-around {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .box-column {
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+    flex-direction: column !important;
+    border-radius: 5px !important;
+    width: 100% !important;
+    height: -webkit-max-content !important;
+    height: -moz-max-content !important;
+    height: max-content !important;
+  }
+
+  .info-user {
+    border-radius: 5px !important;
+    width: 100% !important;
+    background: #efefef !important;
+    height: -webkit-max-content !important;
+    height: -moz-max-content !important;
+    height: max-content !important;
+    padding-bottom: 20px !important;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767.98px) {
+
+  ::ng-deep{
+    .mat-horizontal-stepper-header-container {
+      white-space: nowrap !important;
+      display: flex !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+    }
+
+    .ng-trigger.ng-trigger-animation.ng-tns-c144-0.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable.ui-dialog-resizable.ng-star-inserted {
+    width: 80vw !important;
+    z-index: 11001 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    }
+  }
 
 }
 
