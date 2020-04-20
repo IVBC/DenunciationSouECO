@@ -153,8 +153,9 @@
     </div>
 
     <div class="card shadow mt-4 mb-4" style="width: 95%; height: max-content; ">
+      <p-button class="displayButton mt-2" icon="pi pi-plus" [disabled]="data.statusDenunciation.state_id === 5"  (onClick)="showBasicDialog(null)" label="Novo Status"></p-button>
 
-      <p-table #dt [columns]="colsStatus" styleClass="ui-table-cars" [value]="tableData"  >
+      <p-table #dt [columns]="colsStatus" styleClass="ui-table-cars" [value]="tableData" [responsive]="true" >
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns" [ngClass]="col.field" > <!-- [pSortableColumn]="col.field" [ngSwitch]="col.field" -->

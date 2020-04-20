@@ -1,12 +1,12 @@
 <div class="card ">
   <div class="card-body">
 
-     <p-table #dt [columns]="cols"  [paginator]="true" [rows]="8" [value]="DATA">
+     <p-table #dt [columns]="cols"  [paginator]="true" [rows]="8" [value]="DATA" [responsive]="true">
         <ng-template pTemplate="caption">
             <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
 
-                <input type="text" pInputText size="50" placeholder="Filtro Geral" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <input type="text" pInputText  placeholder="Filtro Geral" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width: 65%">
                <!-- -->
             </div>
         </ng-template>

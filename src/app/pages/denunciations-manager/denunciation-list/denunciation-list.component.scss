@@ -81,11 +81,27 @@ body{
     .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
         min-width: 355px !important;
     }
+
+    .card.shadow.mt-3.cardDenun {
+      width: 26rem !important;
+    }
+
+    .mat-horizontal-stepper-header-container {
+      white-space: nowrap !important;
+      display: flex !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+    }
   }
 
-  .visible-text-button {
-    display: none;
-  }
+ 
+
+  // .visible-text-button {
+  //   display: none;
+  // }
+
+  
 
  }
 
@@ -105,9 +121,11 @@ body{
 
   }
 
-  .visible-text-button {
-    display: none;
-  }
+  
+
+  // .visible-text-button {
+  //   display: none;
+  // }
 
 
  }
@@ -128,9 +146,9 @@ body{
     }
 
   }
-  .visible-text-button {
-    display: none;
-  }
+  // .visible-text-button {
+  //   display: none;
+  // }
 
 
 
@@ -171,6 +189,17 @@ body{
 
   }
 
+  .box-eco{
+    background-color: #e9f6fe;
+    min-height: 100vh;
+    width: 100%;
+    flex-direction: row;
+  }
+
+  input.ui-inputtext.ui-corner-all.ui-state-default.ui-widget {
+    width: 40% !important;
+  }
+
  }
 
 
@@ -193,3 +222,44 @@ body{
 
 
 
+
+
+
+@media screen and (max-width: 40em){
+  body .ui-table.ui-table-responsive .ui-table-tbody > tr td {
+      border: 0 none;
+  }
+
+  .ui-table-responsive .ui-table-tbody>tr>td {
+    text-align: left;
+    display: block;
+    border: 0;
+    width: 100%!important;
+    box-sizing: border-box;
+    float: left;
+    clear: left;
+  }
+}
+body .ui-table .ui-table-tbody > tr > td {
+    background-color: inherit;
+    border: 1px solid #c8c8c8;
+    -moz-transition: box-shadow 0.2s;
+    -o-transition: box-shadow 0.2s;
+    -webkit-transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s;
+}
+
+body .ui-table .ui-table-tbody > tr > td {
+    padding: 0.571em 0.857em;
+}
+
+
+
+body .ui-table .ui-table-tbody > tr {
+  background-color: #ffffff;
+  color: #333333;
+  -moz-transition: background-color 0.2s, box-shadow 0.2s;
+  -o-transition: background-color 0.2s, box-shadow 0.2s;
+  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
