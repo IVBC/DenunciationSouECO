@@ -1,7 +1,7 @@
 <div class="body-fetch d-flex justify-content-center align-items-center" style="background-color: #e9f6fe; min-height: 100vh; width: 100%;">
   <div id="login" class="card shadow" style="width: 28rem; height: max-content;">
     <div class="card-body">
-      <div class="logo-login mb-4"></div>
+      <div class="logo-login mb-4" (click)="toHome()" matTooltip="Página Inicial"></div>
 
       <div class="info mb-3 d-flex justify-content-center  align-items-center" style="flex-direction: column;">
         <span style="float: left;">CMS - SOU ECO</span>
@@ -23,7 +23,7 @@
         </div>
 
         <div class=" mb-2 d-flex justify-content-center  align-items-center" >
-          <button  [disabled]="loading" style="height: 40px;" type="submit" class="btn-eco btn btn-block  btn-sm">
+          <button  [disabled]="loading" matTooltip="Efetuar login" style="height: 40px;" type="submit" class="btn-eco btn btn-block  btn-sm">
             <div *ngIf="loading" class="spinner-border" role="status">
               <span class="sr-only">Loading...</span>
             </div>

@@ -5,6 +5,6 @@ services:
     image: cmssoueco
     build: .
     environment:
-      - API_URL=http://206.189.194.249
+      - API_URL=http://192.168.10.156:3333
     ports:
       - 8081:80

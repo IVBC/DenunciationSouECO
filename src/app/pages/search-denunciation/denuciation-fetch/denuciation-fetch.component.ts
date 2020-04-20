@@ -59,4 +59,8 @@ export class DenuciationFetchComponent implements OnInit {
     });
   }
 
+
+  toHome() {
+    this.router.navigate(['']);
+  }
 }
