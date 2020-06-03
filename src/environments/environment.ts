@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  URL_API: window["env"]["apiUrl"] || "https://soueco-api.tce.am.gov.br",
+  // URL_API: window["env"]["apiUrl"] || "https://soueco-api.tce.am.gov.br",
+  URL_API: window["env"]["apiUrl"] || "http://206.189.194.249",
   debug: window["env"]["debug"] || false // http://localhost:3333' // http://206.189.194.249
 };
 
