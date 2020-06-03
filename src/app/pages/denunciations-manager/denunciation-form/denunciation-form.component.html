@@ -232,7 +232,7 @@
         <div  class="input-group mb-3 mt-3" style="display: flex; flex-direction: column; height: 250px; ">
           <div class="text-danger" *ngIf="statusForm.get('details').invalid && statusForm.get('details').touched">
             <div *ngIf="statusForm.get('details').errors.required"> Dado Obrigatório </div>
-            <div *ngIf="statusForm.get('details').errors.minlength"> Deve ter no mínimo 20 caracteres.  </div>
+            <div *ngIf="statusForm.get('details').errors.minlength"> Deve ter no mínimo 60 caracteres.  </div>
           </div>
           <span style="color: #058950;">Descrição:</span>
           <textarea maxlength="1000" class="form-control" aria-label="With textarea" formControlName="details" style="height: 250px; font-size: 15px; "></textarea>
