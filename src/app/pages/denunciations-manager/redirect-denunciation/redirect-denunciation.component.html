@@ -9,7 +9,7 @@
         </div>
        
         <div *ngIf="!displayEmailPrimary" style="position: relative; display: flex; flex-direction: row;">
-          <input style="width: 30% !important; margin-bottom: 10px;" pInputText id="country" [(ngModel)]="primaryEmail.email" />
+          <input class="input-email"  pInputText id="country" [(ngModel)]="primaryEmail.email" />
           <div style="text-align:left">
             <button  type="button" pButton icon="pi pi-check" label="Salvar" (click)="updateEmail()" [(ngModel)]="recipient.country" style="background-color: #058950 !important;
             border: 1px solid #058950; margin-left: 5px;"></button>
@@ -41,7 +41,7 @@
             </ng-template>
             <ng-template pTemplate="summary" let-rowData>
                 <div style="text-align:left">
-                    <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add" style="background-color: #058950 !important;
+                    <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Adicionar" style="background-color: #058950 !important;
                     border: 1px solid #058950;"></button>
                 </div>
             </ng-template>    
@@ -53,7 +53,7 @@
                     <label for="name">Nome</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
-                    <label style="margin: 0;" for="name">Nome</label>
+                    <label class="label-dialog-dest" for="name">Nome</label>
                     <input pInputText id="name" [(ngModel)]="selectedDirection.name" autofocus />
                 </div>
 
@@ -61,7 +61,7 @@
                     <label for="email">Email</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
-                    <label style="margin: 0;" for="email">Email</label>
+                    <label class="label-dialog-dest" for="email">Email</label>
                     <input pInputText id="email" [(ngModel)]="selectedDirection.email" />
                 </div>
 
@@ -69,7 +69,7 @@
                     <label for="denunciation_type">Tipo</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
-                    <label style="margin: 0;" for="denunciation_type">Tipo</label>
+                    <label class="label-dialog-dest" for="denunciation_type">Tipo</label>
                     <p-dropdown [options]="denunciation_type" [(ngModel)]="selectedDirection.denunciation_type" placeholder="Selecione o Tipo" optionLabel="name" [showClear]="true"></p-dropdown>
                     <!-- <input pInputText id="denunciation_type" [(ngModel)]="selectedDirection.denunciation_type" /> -->
                 </div>
@@ -78,7 +78,7 @@
                     <label for="city">Cidade</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
-                    <label  style="margin: 0;" for="city">Cidade</label>
+                    <label  class="label-dialog-dest" for="city">Cidade</label>
                     <input pInputText id="city" [(ngModel)]="selectedDirection.city" />
                 </div>
 <!-- 
@@ -86,7 +86,7 @@
                     <label for="state">Estado</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
-                    <label style="margin: 0;" for="state">Estado</label>
+                    <label class="label-dialog-dest" for="state">Estado</label>
                     <input pInputText id="state" [(ngModel)]="selectedDirection.state" />
                 </div>
 
@@ -94,7 +94,7 @@
                     <label for="country">País</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
-                    <label style="margin: 0;" for="country">País</label>
+                    <label class="label-dialog-dest" for="country">País</label>
                     <input pInputText id="country" [(ngModel)]="selectedDirection.country" />
                 </div>
 
