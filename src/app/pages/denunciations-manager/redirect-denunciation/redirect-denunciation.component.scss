@@ -1,0 +1,291 @@
+
+:host ::ng-deep{
+
+    .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+      min-width: 365px;
+  }
+
+  tr.ui-selectable-row.ng-star-inserted.ui-state-highlight {
+    background-color: #058950 !important;
+    color: #ffffff;
+  }
+  a.ui-paginator-page.ui-paginator-element.ui-state-default.ui-corner-all.ui-state-active.ng-star-inserted{
+    background-color: #058950 !important;
+    color: #ffffff;
+  }
+
+  th.ui-sortable-column.ng-star-inserted.ui-state-highlight{
+    background-color: #058950 !important;
+    color: #ffffff;
+  }
+
+  .ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default.ui-state-active {
+    border-color: #058950 !important; 
+    background-color: #058950 !important;
+    color: #ffffff !important;
+  }
+  
+  
+  }
+  
+ 
+  .box-label-input{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+  }
+  
+  .send{
+    background: #0074a2 !important;
+    color:#fff;
+    text-align: center;
+  }
+  
+  .progress{
+    background: #dd9933 !important;
+    color:#fff;
+    text-align: center
+  }
+  
+  .done{
+    background: #81d742 !important;
+    color:#fff;
+    text-align: center
+  }
+  
+  .forwarded{
+    background: #a01497 !important;
+    color:#fff;
+    text-align: center
+  }
+  
+  
+  .cleaner{
+    top: 14px;
+    position: relative;
+    transition: .4s;
+  }
+  
+  .cleaner{
+    top: 14px;
+    position: relative;
+    transition: .4s;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .cleaner:hover{
+    font-size: 25px;
+    // transform: scale(1);
+  }
+  
+  
+  
+  
+  body{
+    background-color: #e8f5fd !important;
+  }
+  
+  
+  .div-spin{
+    padding: 10px;
+  
+  }
+  
+  
+  
+  
+  @media (max-width: 575.98px) {
+  
+    :host ::ng-deep{
+  
+      input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+        width: 100%  !important;
+      }
+  
+      .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+          min-width: 355px !important;
+      }
+  
+      .card.shadow.mt-3.cardDenun {
+        width: 26rem !important;
+      }
+  
+      .mat-horizontal-stepper-header-container {
+        white-space: nowrap !important;
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+      }
+    }
+  
+   
+  
+    // .visible-text-button {
+    //   display: none;
+    // }
+  
+    
+  
+   }
+  
+  
+  
+  @media (min-width: 576px) and (max-width: 767.98px) {
+  
+    :host ::ng-deep{
+  
+      input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+        width: 100%  !important;
+      }
+  
+      .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+          min-width: 355px !important;
+      }
+  
+    }
+  
+    
+  
+    // .visible-text-button {
+    //   display: none;
+    // }
+  
+  
+   }
+  
+  
+  
+  
+  @media (min-width: 768px) and (max-width: 991.98px) {
+  
+    :host ::ng-deep{
+  
+      input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+        width: 100%  !important;
+      }
+  
+      .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+          min-width: 365px !important;
+      }
+  
+    }
+    // .visible-text-button {
+    //   display: none;
+    // }
+  
+  
+  
+   }
+  
+  
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+  
+    :host ::ng-deep{
+  
+      input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+        width: 100%  !important;
+      }
+  
+      .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+          min-width: 365px !important;
+      }
+    }
+  
+    button.btn.btn-outline-primary.ng-star-inserted {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+   }
+  
+  
+  @media (min-width: 1200px) {
+    :host ::ng-deep{
+  
+      input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+        width: 100%  !important;
+      }
+  
+      .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+          min-width: 365px !important;
+      }
+  
+    }
+  
+    .box-eco{
+      background-color: #e9f6fe;
+      min-height: 100vh;
+      width: 100%;
+      flex-direction: row;
+    }
+  
+    input.ui-inputtext.ui-corner-all.ui-state-default.ui-widget {
+      width: 100% !important;
+    }
+  
+   }
+  
+  
+   @media (min-width: 1360px) {
+  
+     :host ::ng-deep{
+  
+      input.ng-tns-c113-0.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted {
+        width: 100%  !important;
+      }
+  
+      .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c113-0.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-star-inserted {
+          min-width: 365px !important;
+      }
+  
+    }
+  
+  }
+  
+  
+  
+  
+  
+  
+  
+  @media screen and (max-width: 40em){
+    body .ui-table.ui-table-responsive .ui-table-tbody > tr td {
+        border: 0 none;
+    }
+  
+    .ui-table-responsive .ui-table-tbody>tr>td {
+      text-align: left;
+      display: block;
+      border: 0;
+      width: 100%!important;
+      box-sizing: border-box;
+      float: left;
+      clear: left;
+    }
+  }
+  body .ui-table .ui-table-tbody > tr > td {
+      background-color: inherit;
+      border: 1px solid #c8c8c8;
+      -moz-transition: box-shadow 0.2s;
+      -o-transition: box-shadow 0.2s;
+      -webkit-transition: box-shadow 0.2s;
+      transition: box-shadow 0.2s;
+  }
+  
+  body .ui-table .ui-table-tbody > tr > td {
+      padding: 0.571em 0.857em;
+  }
+  
+  
+  
+  body .ui-table .ui-table-tbody > tr {
+    background-color: #ffffff;
+    color: #333333;
+    -moz-transition: background-color 0.2s, box-shadow 0.2s;
+    -o-transition: background-color 0.2s, box-shadow 0.2s;
+    -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
