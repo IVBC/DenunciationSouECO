@@ -3,7 +3,7 @@ import {environment} from '../../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map, timeout} from 'rxjs/operators';
-import {Recipient} from '../Models/Recipients-model';
+import {PrimaryRecipient, SecondaryRecipient} from '../Models/Recipients-model';
 import {Complaint} from '../../../search-denunciation/shared/ complaint.model';
 import {FormGroup} from '@angular/forms';
 
@@ -13,16 +13,47 @@ import {FormGroup} from '@angular/forms';
 export class RedirectDenunciationService {
   private api = environment.URL_API;
 
+
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Recipient[]> {
-    const url = `${this.api}/recipients`;
+  getRecipientPrimary(): Observable<PrimaryRecipient> {
+    const url = `${this.api}/primaryEmail`;
     console.log(url);
     return this.http.get(url).pipe(
       catchError(this.handleError),
-      map(this.jsonDatatoRecipients)
+      map(this.jsonDatatoPrimaryRecipient)
     );
   }
+
+  updateRecipientPrimary(email: string): Observable<PrimaryRecipient> {
+    console.log('Setting new email: ', email );
+    return this.http.put(`${this.api}/primaryEmail`, { email }).pipe(
+      timeout(120000),
+      catchError(this.handleError),
+      map(this.jsonDatatoPrimaryRecipient),
+    );
+  }
+
+  getAllSecondaryRecipients(): Observable<SecondaryRecipient[]> {
+    const url = `${this.api}/recipients`;
+    console.log(url);
+    return this.http.get(url).pipe(
+      timeout(120000),
+      catchError(this.handleError),
+      map(this.jsonDatatoSecondaryRecipients),
+    );
+  }
+
+  newRecipientSecondary(data: SecondaryRecipient): Observable<SecondaryRecipient> {
+    console.log('newRecipientSecondary ', data );
+    return this.http.post(`${this.api}/recipients`, data).pipe(
+      timeout(120000),
+      catchError(this.handleError),
+      map(this.jsonDataToSecondaryRecipient),
+    );
+  }
+
+
 
 
   deleteStatus(code: string, stateId: number): Observable<Response>{
@@ -52,30 +83,37 @@ export class RedirectDenunciationService {
 
   // PRIVATE METHODS
 
-  private jsonDatatoRecipients(jsonData: any[]): Recipient[] {
-    const denunciations: Recipient[] = [];
+  private jsonDatatoSecondaryRecipients(jsonData: any[]): SecondaryRecipient[] {
+    const secondaryRecipients: SecondaryRecipient[] = [];
     jsonData.forEach(element => {
-      denunciations.push({
-        ... element as Recipient,
+      secondaryRecipients.push({
+        ... element as SecondaryRecipient,
         // timestamp: new Date (element.timestamp),
         // closed_at: new Date(element.closed_at),
         // createdAt: new Date(element.createdAt),
       });
     });
 
-    return denunciations;
+    return secondaryRecipients;
   }
 
-  private jsonDatatoDenunciation(jsonData: any): (Complaint) {
-    let denunciation = jsonData as Complaint;
-    denunciation = { ... denunciation};
-    return denunciation;
+  private jsonDatatoPrimaryRecipient(jsonData: any): (PrimaryRecipient) {
+    let primaryRecipient = jsonData as PrimaryRecipient;
+    primaryRecipient = { ... primaryRecipient};
+    return primaryRecipient;
   }
+
+  private jsonDataToSecondaryRecipient(jsonData: any): (SecondaryRecipient) {
+    let secondaryRecipient = jsonData as SecondaryRecipient;
+    secondaryRecipient = { ... secondaryRecipient};
+    return secondaryRecipient;
+  }
+
 
   private jsonDatatoStatusUpdate(jsonData: any): (any) {
     // let denunciation = jsonData as Complaint;
     // denunciation = { ... denunciation};
-    return 
+    return
     jsonData;
   }
   private handleError(error: any): Observable<any> {
@@ -83,32 +121,30 @@ export class RedirectDenunciationService {
     return throwError(error);
   }
 
-  getByCode(id: string): Observable<Complaint> {
-      const url = `${this.api}/recipients/${id}`;
-      console.log(url);
-      return this.http.get(url).pipe(
-        timeout(120000),
-        catchError(this.handleError),
-        map(this.jsonDatatoDenunciation),
-      );
-  }
+  // getByCode(id: string): Observable<Complaint> {
+  //     const url = `${this.api}/recipients/${id}`;
+  //     console.log(url);
+  //     return this.http.get(url).pipe(
+  //       timeout(120000),
+  //       catchError(this.handleError),
+  //       map(this.jsonDatatoDenunciation),
+  //     );
+  // }
 
-  updateStatus(code: string, statusForm: FormGroup): Observable<any> {
-    console.log(code, statusForm );
-    const formData: any = new FormData();
-    formData.append('state_id', statusForm.get('state_id').value);
-    formData.append('details', statusForm.get('details').value);
-    formData.append('file', statusForm.get('file').value);
-    console.log(`${this.api}/recipients/${code}`);
-    console.log(formData.get('state_id'));
-    console.log(formData.get('details'));
-    return this.http.put(`${this.api}/recipients/${code}`, formData).pipe(
-      timeout(120000),
+
+  removeSecondaryRecipients(id: number): Observable<Response> {
+    return this.http.delete(`${this.api}/recipients/${id}`).pipe(
       catchError(this.handleError),
-      map(this.jsonDatatoStatusUpdate),
+      map(() => null)
     );
   }
 
-
-
+  updateRecipientSecondary(data: SecondaryRecipient): Observable<SecondaryRecipient> {
+    console.log('edit Recipient Secondary ', data );
+    return this.http.put(`${this.api}/recipients/${data.id}`, data).pipe(
+      timeout(120000),
+      catchError(this.handleError),
+      map(this.jsonDataToSecondaryRecipient),
+    );
+  }
 }

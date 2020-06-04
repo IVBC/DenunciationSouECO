@@ -2,16 +2,21 @@
     <div class="card-body">
 
       <div class="p-col-8 box-label-input" >
-        <label style="margin: 0; font-size: 14px;"  for="country">Email Primário</label>
-        <div *ngIf="displayEmailPrimary" style="position: relative; display: flex; flex-direction: row; margin-bottom: 20px;">
-          <span style="margin: 0; color: #058950; font-size: 16px;">{{primaryEmail.email}}</span>
-          <span matTooltipPosition="above" matTooltip="Editar Email Primário" style="margin-left: 10px; font-size: 19px; cursor: pointer;" class="material-icons" (click)="editEmail()">edit</span>
+        <label style="margin: 0; font-size: 14px; margin-bottom: 4px;"  for="country" >Email principal para recebimento de Denúncias</label>
+
+        <div *ngIf="loadingPrimaryEmail" style="position: relative; display: flex; flex-direction: row; margin-bottom: 20px;">
+          <span style="margin: 0; color: #058950; font-size: 16px;">Carregando ...</span>
         </div>
-       
-        <div *ngIf="!displayEmailPrimary" style="position: relative; display: flex; flex-direction: row;">
-          <input class="input-email"  pInputText id="country" [(ngModel)]="primaryEmail.email" />
+        <div *ngIf="!loadingPrimaryEmail&&displayEmailPrimary" style="position: relative; display: flex; flex-direction: row; margin-bottom: 20px;">
+          <span style="margin: 0; color: #058950; font-size: 16px;">{{primaryRecipient?.email || "Carregando ..."}}</span>
+
+          <span matTooltipPosition="above" matTooltip="Editar Email Principal" style="margin-left: 10px; font-size: 19px; cursor: pointer;" class="material-icons" (click)="editEmail()">edit</span>
+        </div>
+
+        <div *ngIf="!loadingPrimaryEmail&&!displayEmailPrimary" style="position: relative; display: flex; flex-direction: row;">
+          <input class="input-email"  pInputText id="country" [(ngModel)]="primaryRecipient.email" />
           <div style="text-align:left">
-            <button  type="button" pButton icon="pi pi-check" label="Salvar" (click)="updateEmail()" [(ngModel)]="recipient.country" style="background-color: #058950 !important;
+            <button  type="button" pButton icon="pi pi-check" label="Salvar" (click)="updateEmail()"  style="background-color: #058950 !important;
             border: 1px solid #058950; margin-left: 5px;"></button>
           </div>
         </div>
@@ -19,7 +24,7 @@
 
 
 
-        <p-table [columns]="cols" [value]="data" selectionMode="single" [(selection)]="selectedDirection" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="8" [responsive]="true">
+        <p-table [columns]="cols" [value]="secondaryRecipients"   selectionMode="single" [(selection)]="selectedDirection" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="8" [responsive]="true">
             <ng-template pTemplate="caption">
                 Lista de Destinatários
             </ng-template>
@@ -31,23 +36,24 @@
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <ng-template  pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData" >
                     <td *ngFor="let col of columns">
                         {{col.field !=  'include_primary' ? rowData[col.field] : ''}}
-                        <span *ngIf="col.field == 'include_primary' ">{{rowData[col.field] == true? 'Habilitado' : 'Desabilitado'}}</span>
+                        <span *ngIf="col.field == 'include_primary' ">{{rowData[col.field] ? 'Sim' : 'Não'}}</span>
                     </td>
                 </tr>
             </ng-template>
+
             <ng-template pTemplate="summary" let-rowData>
                 <div style="text-align:left">
                     <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Adicionar" style="background-color: #058950 !important;
                     border: 1px solid #058950;"></button>
                 </div>
-            </ng-template>    
+            </ng-template>
         </p-table>
-        
-        <p-dialog header="Novo Destinatário" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+
+        <p-dialog [header]="!isModeEditForm?'Novo Destinatário': 'Editar Destinatário'"  [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
             <div class="p-grid ui-fluid" *ngIf="selectedDirection">
                 <!-- <div class="p-col-4">
                     <label for="name">Nome</label>
@@ -70,10 +76,10 @@
                 </div> -->
                 <div class="p-col-8 box-label-input">
                     <label class="label-dialog-dest" for="denunciation_type">Tipo</label>
-                    <p-dropdown [options]="denunciation_type" [(ngModel)]="selectedDirection.denunciation_type" placeholder="Selecione o Tipo" optionLabel="name" [showClear]="true"></p-dropdown>
+                    <p-dropdown [options]="denunciation_type_options" [(ngModel)]="selectedOptionTypeDenunciation" placeholder="Selecione o Tipo" optionLabel="name" ></p-dropdown>
                     <!-- <input pInputText id="denunciation_type" [(ngModel)]="selectedDirection.denunciation_type" /> -->
                 </div>
-<!-- 
+<!--
                 <div class="p-col-4">
                     <label for="city">Cidade</label>
                 </div> -->
@@ -81,7 +87,7 @@
                     <label  class="label-dialog-dest" for="city">Cidade</label>
                     <input pInputText id="city" [(ngModel)]="selectedDirection.city" />
                 </div>
-<!-- 
+<!--
                 <div class="p-col-4">
                     <label for="state">Estado</label>
                 </div> -->
@@ -107,12 +113,12 @@
             </div>
             <p-footer>
                 <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button style="background-color: #058950 !important; border: 1px solid #058950;" type="button" pButton icon="pi pi-times"  label="Delete"></button>
-                    <button style="background-color: #058950 !important; border: 1px solid #058950;" type="button" pButton icon="pi pi-check"  label="Save"></button>
+                    <button *ngIf="isModeEditForm" style="background-color: #d70404 !important; float: left; border: 1px solid #d70404;" type="button" pButton icon="pi pi-times" label="Remover" (click)="removeRecipient()" ></button>
+                    <button style="background-color: #058950 !important; float: right; border: 1px solid #058950;" type="button" pButton icon="pi pi-check"  label="Salvar" (click)="saveRecipient()"></button>
                 </div>
             </p-footer>
         </p-dialog>
-  
+
 
 
 
@@ -124,7 +130,7 @@
           <ng-template pTemplate="caption">
               <div style="text-align: right">
                   <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-  
+
                   <input type="text" pInputText  placeholder="Filtro Geral" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width: 65%">
               </div>
           </ng-template>
@@ -134,113 +140,112 @@
                       {{col.header}}
                     <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                   </th>
-  
+
               </tr>
               <tr>
                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                      <input *ngSwitchCase="'code'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width:100%;" > 
-  
-  
+                      <input *ngSwitchCase="'code'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width:100%;" >
+
+
                       <div class="form-group mb-0" *ngSwitchCase="'city'" >
                         <select class="form-control" id="exampleFormControlSelect1" (change)="dt.filter($event.target.value, col.field, 'contains')">
                           <option *ngFor="let op of city" value="{{op.value}}" >{{op.label}}</option>
                         </select>
                       </div>
-  
+
                       <div class="form-group mb-0" *ngSwitchCase="'type'">
                         <select class="form-control" id="exampleFormControlSelect1" (change)="dt.filter($event.target.value, col.field, 'contains')">
                           <option *ngFor="let tp of type" value="{{tp.value}}" >{{tp.label}}</option>
                         </select>
                       </div>
-  
-  
+
+
                       <div class="form-group mb-0" *ngSwitchCase="'state'" >
                         <select class="form-control mb-0" id="exampleFormControlSelect1" (change)="dt.filter($event.target.value, col.field, 'contains')">
                           <option *ngFor="let stt of state" value="{{stt.value}}" >{{stt.label}}</option>
                         </select>
                       </div>
-  
+
                       <div  *ngSwitchCase="'date'"  >
-  
+
                         <div style="width: 100%; display: flex; flex-direction: row; height: 40px;">
-  
+
                           <mat-form-field *ngSwitchCase="'date'" [ngStyle]="{width: dateSeach?'85%':'100%'}" >
                             <mat-label>Dia</mat-label>
                             <input autocomplete="off" (click)="picker1.open()" (dateChange)="onSelectDateFilter($event, col, dt)" matInput [matDatepicker]="picker1" [(ngModel)]="dateSeach" [formControl]="dateCalendar">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                           </mat-form-field>
-  
+
                           <i *ngIf="dateSeach"  matTooltipPosition="above" matTooltip="Limpar Data" class="material-icons cleaner ml-2"  (click)="onClearClick(col, dt); dateSeach=null;">close</i>
-  
+
                         </div>
-  
+
                       </div>
-  
+
                       <div class="form-group mb-0" *ngSwitchCase="'status'" (change)="dt.filter($event.target.value, col.field, 'contains')">
                         <select class="form-control" id="exampleFormControlSelect1">
                           <option *ngFor="let stts of status" value="{{stts.value}}" >{{stts.label}}</option>
                         </select>
                       </div>
-  
+
                       <div *ngSwitchCase="'action'" ></div>
                   </th>
               </tr>
               <tr>
                 <th   *ngFor="let col of columns"  style="text-align: center; padding: 0; background: #fff; border: none;">
-  
+
                   <div *ngIf="col.field == 'city' && loading" class="div-spin" >
                     <div class="spinner-border text-success" role="status">
                       <span class="sr-only">Loading...</span>
                     </div>
                   </div>
-  
+
                   <div *ngIf="col.field == 'city' && !loading" class="div-spin" >
                     <button (click)="requestData()" *ngIf="alert.status && alert.type == 'ERROR_REQUEST'" style="display: flex; flex-direction: row;" type="button" class="btn btn-outline-success">Tentar novamente
                       <i class="material-icons ml-2"  style="top: 10px;position: relative;font-size: 30px;">refresh</i>
                     </button>
-  
+
                     <span *ngIf="alert.status && alert.type == 'EMPTY'" style="color: #058950; font-size: 20px;">Não há denúncias!</span>
                   </div>
                 </th>
               </tr>
-  
-  
+
+
           </ng-template>
-  
+
           <ng-template pTemplate="body" let-rowData let-columns="columns">
-  
+
               <tr [pSelectableRow]="rowData">
                   <td *ngFor="let col of columns" style="text-align: -webkit-center;">
-  
+
                     <span *ngIf="col.field == 'code' ">{{rowData[col.field ]}}</span>
                     <span *ngIf="col.field == 'type' ">{{rowData[col.field ]}}</span>
                     <span *ngIf="col.field == 'date' ">{{rowData[col.field ] | date: 'dd/MM/yyyy hh:mm aa'}}</span>
                     <span *ngIf="col.field == 'city' ">{{rowData[col.field ]}}</span>
                     <span *ngIf="col.field == 'state' ">{{rowData[col.field ]}}</span>
-  
-  
+
+
                     <div [ngClass]="setStatus(rowData[col.field])"  *ngIf="col.field == 'status'" style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex; ">
                      <span style="float: left; font-weight: bold; position: relative; top: 2px;">{{textStatus}}</span >
                     </div>
-  
+
                     <button  matTooltipPosition="above"
                     matTooltip="Visualizar" *ngIf="col.field == 'action' " style="display: flex; flex-direction: row;" type="button" class="btn btn-outline-primary" (click)="viewDenunciation(rowData['code'])">
                       <p  class="mb-0 visible-text-button">Visualizar</p>
                       <i class="material-icons  " >visibility</i>
                     </button>
-  
+
                   </td>
-  
+
               </tr>
-  
-  
+
+
           </ng-template>
                 <div  style="width: 100%; height: 70px; background: rebeccapurple;"></div>
         </p-table> -->
-  
-  
+
+
     </div>
   </div>
-  
-  
+
