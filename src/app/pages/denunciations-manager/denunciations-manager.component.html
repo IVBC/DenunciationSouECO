@@ -39,7 +39,11 @@ width: 100%;
   <div class="collapse navbar-collapse" id="navbarNav">
     <img id="logoeco" style="width: 420px; height: 70px; border-radius: 50px; padding: 0px 30px 0px 30px"  src="../assets/images/logoSouECO.png" alt="">
     <h4 id="h4title" style="margin: 0; height: max-content; color: #ffffff;">DENÚNCIAS - APP SOU ECO!</h4>
-  
+
+    <div id="nav-desktop"  style="position: relative; display: flex; font-size: 16px" >
+      <a id="red" class="red" [routerLink]="['/denunciations/redirect']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="activeNav">Destinatários</a>
+      <a id="den" class="red" [routerLink]="['/denunciations']"  routerLinkActive="activeNav" [routerLinkActiveOptions]="{exact:true}" >Denúncias</a>
+    </div>
     <div id="logout" style="display: flex; flex-direction: row;">
       <div style="width: 150px; height: max-content; display: table;
       justify-content: right;" >
@@ -54,12 +58,19 @@ width: 100%;
 
 
     <ul id="menuList" class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" [routerLink]="['/denunciations/']" routerLinkActive="router-link-active" >Denúncias</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" [routerLink]="['/denunciations/redirect']" routerLinkActive="router-link-active" >Destinatários</a>
+      </li>
       <li class="nav-item active">
         <a class="nav-link" (click)="dialogUser()">Meu Perfil</a>
       </li>
       <li class="nav-item">
         <a class="nav-link active" (click)="confirmDialog()">Logout</a>
       </li>
+      
     </ul>
   </div>
 

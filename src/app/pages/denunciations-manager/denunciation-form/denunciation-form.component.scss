@@ -441,6 +441,9 @@
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
+  p-button.displayButton.mt-2 {
+    display: none;
+  }
 
   th.description.ng-star-inserted {
     width: 140px !important;
@@ -473,6 +476,11 @@
 }
 
 @media (min-width: 1920px) {
+  p-button.displayButton.mt-2 {
+    display: none;
+  }
+
+  
   h5#stausText {
     font-size: 25px;
   }

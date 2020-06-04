@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <input *ngSwitchCase="'code'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width:100%;" > <!---->
+                    <input id="input" *ngSwitchCase="'code'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width:100% !important;" > <!---->
 
 
                     <div class="form-group mb-0" *ngSwitchCase="'city'" >

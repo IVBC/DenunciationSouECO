@@ -10,8 +10,33 @@
   color: #717171;  width: max-content; float: right; cursor: pointer;
 }
 
+.activeNav{
+  color: #058950 !important;
+}
+
+a#red {
+  color: #717171;
+}
+
+a#den {
+  color: #717171;
+}
+
+
+.red {
+  display: block;
+  padding: .5rem 1rem;
+  text-decoration: none;
+}
+
+
+
 
 @media (max-width: 575.98px) { 
+
+  div#nav-desktop {
+    display: none !important;
+  }
   img#logoeco {
     display: none;
   }
@@ -37,6 +62,10 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767.98px) { 
+
+  div#nav-desktop {
+    display: none !important;
+  }
   img#logoeco {
     display: none;
   }
@@ -63,6 +92,10 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991.98px) { 
+  div#nav-desktop {
+    display: none !important; 
+  }
+
   img#logoeco {
     display: none;
   }
@@ -89,6 +122,11 @@
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+  div#nav-desktop {
+    display: none !important;
+  }
+  
   img#logoeco {
     display: none;
   }
