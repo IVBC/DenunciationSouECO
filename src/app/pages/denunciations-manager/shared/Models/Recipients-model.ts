@@ -1,4 +1,4 @@
-export interface Recipient {
+export interface SecondaryRecipient {
     id?: number;
     name?: string;
     email?: string;
@@ -8,10 +8,10 @@ export interface Recipient {
     city?: string;
     include_primary?: boolean;
   }
-  
 
 
-  export interface Primary {
+
+  export interface PrimaryRecipient {
     id?: number;
     name?: string;
     email?: string;
@@ -24,4 +24,3 @@ export interface Recipient {
     updatedAt?: string;
     createdAt?: string;
   }
-  
