@@ -38,26 +38,28 @@ width: 100%;
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <img id="logoeco" style="width: 420px; height: 70px; border-radius: 50px; padding: 0px 30px 0px 30px"  src="../assets/images/logoSouECO.png" alt="">
-    <h4 id="h4title" style="margin: 0; height: max-content; color: #ffffff;">DENÚNCIAS - APP SOU ECO!</h4>
+    <h4 id="h4title" style="margin: 0; height: max-content; color: #058950; font-size: 1.2rem;">DENÚNCIAS - APP SOU ECO!</h4>
 
     <div id="nav-desktop"  style="position: relative; display: flex; font-size: 16px" >
       <a id="red" class="red" [routerLink]="['/denunciations/redirect']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="activeNav">Destinatários</a>
       <a id="den" class="red" [routerLink]="['/denunciations']"  routerLinkActive="activeNav" [routerLinkActiveOptions]="{exact:true}" >Denúncias</a>
-      <a id="perfil" style="cursor: pointer;  color: #717171 !important; " class="red perfil " matTooltipPosition="above" matTooltip="Visualizar Perfil" (click)="dialogUser()" [routerLinkActiveOptions]="{exact:true}">Meu Perfil</a>
-      <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"
-      matTooltip="Clique para encerrar sessão" class="material-icons ml-3" (click)="confirmDialog()">exit_to_app</i>
-    </div>
-    <!-- <div id="logout" style="display: flex; flex-direction: row;">
-      <div style="width: 150px; height: max-content; display: table;
+<!--      <a id="perfil" style="cursor: pointer;  color: #717171 !important; " class="red perfil " matTooltipPosition="above" matTooltip="Visualizar Perfil" (click)="dialogUser()" >Meu Perfil</a>-->
+<!--      <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"-->
+<!--      matTooltip="Clique para encerrar sessão" class="material-icons ml-3" (click)="confirmDialog()">exit_to_app</i>-->
+      <div id="logout" style="display: flex; flex-direction: row;">
+        <div style="width: 150px; height: max-content; display: table;
       justify-content: right;" >
-        <span style="font-weight: bolder; font-size: 20px; width: max-content; float: right;">{{name}}</span>
-        <a class="perfil" matTooltipPosition="above"
-           matTooltip="Visualizar Perfil" (click)="dialogUser()">Meu Perfil</a>
+          <span style="font-weight: bolder; font-size: 20px; width: max-content; float: right;">{{name}}</span>
+          <a class="perfil" matTooltipPosition="above"
+             matTooltip="Visualizar Perfil" (click)="dialogUser()">Meu Perfil</a>
+        </div>
+
+        <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"
+           matTooltip="Clique para encerrar sessão" class="material-icons ml-3" (click)="confirmDialog()">exit_to_app</i>
       </div>
-  
-      <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"
-         matTooltip="Clique para encerrar sessão" class="material-icons ml-3" (click)="confirmDialog()">exit_to_app</i>
-    </div> -->
+
+    </div>
+
 
 
     <ul id="menuList" class="navbar-nav">
@@ -73,11 +75,11 @@ width: 100%;
       <li class="nav-item">
         <a class="nav-link active" (click)="confirmDialog()">Logout</a>
       </li>
-      
+
     </ul>
   </div>
 
-  
+
 </nav>
 
 <div class="content">
