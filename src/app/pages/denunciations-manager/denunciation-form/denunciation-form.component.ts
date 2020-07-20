@@ -431,6 +431,8 @@ export class DenunciationFormComponent implements OnInit {
 
       if (ans) {
         this.data = ans;
+        this.data.denunciation.city = this.data.denunciation.city.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase());
+        this.data.denunciation.state =  this.data.denunciation.state.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase());
 
         this.galleryImages = this.data.denunciation.files.map(value => ({small: value.url, medium: value.url, big: value.url }));
 

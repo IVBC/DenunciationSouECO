@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SecondaryRecipient, PrimaryRecipient } from '../shared/Models/Recipients-model';
 import { RedirectDenunciationService } from '../shared/services/redirect-denunciation.service';
 import {ToastrService} from 'ngx-toastr';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export interface DenunciationType {
   name?: string;
@@ -14,6 +15,11 @@ export interface DenunciationType {
   styleUrls: ['./redirect-denunciation.component.scss']
 })
 export class RedirectDenunciationComponent implements OnInit {
+
+  recipientForm: FormGroup;
+  serverErrorMessages: string[] = null;
+  submittingForm: boolean = false;
+
 
   denunciation_type_options: DenunciationType[];
   public displayEmailPrimary = true;
@@ -34,12 +40,17 @@ export class RedirectDenunciationComponent implements OnInit {
   private loadingDeleteRecipients = false;
   private loadingAddRecipient: boolean;
 
-  constructor(private redirectDenunciation: RedirectDenunciationService, public toastrService: ToastrService) { }
+  constructor(
+    private redirectDenunciation: RedirectDenunciationService,
+    public toastrService: ToastrService,
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit() {
 
       this.requestPrimaryEmail();
       this.requestSecondaryEmails();
+      this.buildRecipientForm();
 
 
 
@@ -125,10 +136,12 @@ export class RedirectDenunciationComponent implements OnInit {
   }
 
   showDialogToAdd() {
-      // this.newCar = true;
+      console.log(this.recipientForm)
+
       this.isModeEditForm = false;
       this.selectedDirection = {};
-      this.selectedOptionTypeDenunciation = {};
+      this.recipientForm.reset();
+      this.recipientForm.controls.include_primary.setValue(false);
       this.displayDialog = true;
 
   }
@@ -140,6 +153,7 @@ export class RedirectDenunciationComponent implements OnInit {
   updateEmail() {
     this.loadingPrimaryEmail = true;
     this.redirectDenunciation.updateRecipientPrimary(this.primaryRecipient.email).subscribe(response => {
+      console.log('response', response);
       this.primaryRecipient = response;
       this.loadingPrimaryEmail = false;
 
@@ -169,9 +183,8 @@ export class RedirectDenunciationComponent implements OnInit {
   // }
 
   onRowSelect(event) {
-    console.log(this.selectedOptionTypeDenunciation);
-    console.log(this.selectedDirection);
-    this.selectedOptionTypeDenunciation = this.denunciation_type_options.find(opt => opt.value === this.selectedDirection.denunciation_type);
+    this.recipientForm.patchValue({... this.selectedDirection });
+    this.recipientForm.controls.denunciation_type.setValue(this.denunciation_type_options.find(opt => opt.value.toLowerCase() === this.recipientForm.controls.denunciation_type.value.toLowerCase()));
     this.isModeEditForm = true;
 
     // this.newCar = false;
@@ -192,6 +205,7 @@ export class RedirectDenunciationComponent implements OnInit {
   private requestPrimaryEmail() {
     this.loadingPrimaryEmail = true;
     this.redirectDenunciation.getRecipientPrimary().subscribe((response) => {
+      console.log('response', response);
       this.primaryRecipient = response;
       this.loadingPrimaryEmail = false;
     }, error => {
@@ -203,7 +217,15 @@ export class RedirectDenunciationComponent implements OnInit {
   private requestSecondaryEmails() {
       this.loadingSecondaryRecipients = true;
       this.redirectDenunciation.getAllSecondaryRecipients().subscribe(response => {
+        console.log(response);
         this.secondaryRecipients = response;
+        this.secondaryRecipients = this.secondaryRecipients.map(sec => ({
+          ... sec,
+            city: sec.city.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()),
+            state: sec.state.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()),
+            country: sec.country.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()),
+            denunciation_type: sec.denunciation_type.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase())
+        }));
         this.loadingSecondaryRecipients = false;
       }, error => {
         console.log(error);
@@ -232,10 +254,11 @@ export class RedirectDenunciationComponent implements OnInit {
   saveRecipient() {
     this.loadingAddRecipient = true;
     const newRecipient = {
-      ... this.selectedDirection,
-      denunciation_type: this.selectedOptionTypeDenunciation.value
+      ... this.recipientForm.value,
+      denunciation_type: this.recipientForm.controls.denunciation_type.value.value
     }
-    if (!this.isModeEditForm){
+    console.log(newRecipient);
+    if (!this.isModeEditForm) {
       this.redirectDenunciation.newRecipientSecondary(newRecipient).subscribe(() => {
         this.toastrService.success(`Destinário ${this.selectedDirection.name} cadastrado com sucesso!`);
         this.requestSecondaryEmails();
@@ -259,5 +282,18 @@ export class RedirectDenunciationComponent implements OnInit {
       });
     }
 
+  }
+
+  private buildRecipientForm() {
+      this.recipientForm = this.formBuilder.group({
+        id: [null],
+        name: [null, [Validators.required, Validators.minLength(6)]],
+        email: [null, [Validators.required, Validators.email]],
+        denunciation_type:  [null, [Validators.required]],
+        city:  [null, [Validators.required]],
+        state:  [null, [Validators.required]],
+        country:  [null, [Validators.required]],
+        include_primary: [false]
+      });
   }
 }

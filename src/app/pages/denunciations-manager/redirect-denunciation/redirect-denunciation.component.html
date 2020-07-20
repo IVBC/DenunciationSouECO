@@ -2,19 +2,19 @@
     <div class="card-body">
 
       <div class="p-col-8 box-label-input" >
-        <label style="margin: 0; font-size: 14px; margin-bottom: 4px;"  for="country" >Email principal para recebimento de Denúncias</label>
+        <label style="margin: 0; font-size: 14px; margin-bottom: 4px;"   >Email principal para recebimento de Denúncias</label>
 
         <div *ngIf="loadingPrimaryEmail" style="position: relative; display: flex; flex-direction: row; margin-bottom: 20px;">
           <span style="margin: 0; color: #058950; font-size: 16px;">Carregando ...</span>
         </div>
         <div *ngIf="!loadingPrimaryEmail&&displayEmailPrimary" style="position: relative; display: flex; flex-direction: row; margin-bottom: 20px;">
-          <span style="margin: 0; color: #058950; font-size: 16px;">{{primaryRecipient?.email || "Carregando ..."}}</span>
+          <span style="margin: 0; color: #058950; font-size: 16px;">{{primaryRecipient?.email || "Email não cadastrado"}}</span>
 
           <span matTooltipPosition="above" matTooltip="Editar Email Principal" style="margin-left: 10px; font-size: 19px; cursor: pointer;" class="material-icons" (click)="editEmail()">edit</span>
         </div>
 
         <div *ngIf="!loadingPrimaryEmail&&!displayEmailPrimary" style="position: relative; display: flex; flex-direction: row;">
-          <input class="input-email"  pInputText id="country" [(ngModel)]="primaryRecipient.email" />
+          <input class="input-email"  pInputText  [(ngModel)]="primaryRecipient.email"  (keyup.enter)="updateEmail()"/>
           <div style="text-align:left">
             <button  type="button" pButton icon="pi pi-check" label="Salvar" (click)="updateEmail()"  style="background-color: #058950 !important;
             border: 1px solid #058950; margin-left: 5px;"></button>
@@ -54,13 +54,17 @@
         </p-table>
 
         <p-dialog [header]="!isModeEditForm?'Novo Destinatário': 'Editar Destinatário'"  [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
-            <div class="p-grid ui-fluid" *ngIf="selectedDirection">
+            <form [formGroup]="recipientForm"  class="p-grid ui-fluid" *ngIf="selectedDirection">
                 <!-- <div class="p-col-4">
                     <label for="name">Nome</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
                     <label class="label-dialog-dest" for="name">Nome</label>
-                    <input pInputText id="name" [(ngModel)]="selectedDirection.name" autofocus />
+                    <input pInputText id="name" formControlName="name"  autofocus autocomplete="none"  />
+                    <div class="text-danger" *ngIf="recipientForm.get('name').invalid && recipientForm.get('name').touched">
+                      <div *ngIf="recipientForm.get('name').errors.required">Nome é obrigatório</div>
+                      <div *ngIf="recipientForm.get('name').errors.minlength">Deve ter no mínimo 6 caracteres</div>
+                    </div>
                 </div>
 
                 <!-- <div class="p-col-4">
@@ -68,16 +72,23 @@
                 </div> -->
                 <div class="p-col-8 box-label-input">
                     <label class="label-dialog-dest" for="email">Email</label>
-                    <input pInputText id="email" [(ngModel)]="selectedDirection.email" />
+                    <input pInputText id="email" formControlName="email"  />
+                    <div class="text-danger" *ngIf="recipientForm.get('email').invalid && recipientForm.get('email').touched">
+                      <div *ngIf="recipientForm.get('email').errors.required">Email é obrigatório</div>
+                      <div *ngIf="recipientForm.get('email').errors.email">Email não é válido</div>
+                    </div>
                 </div>
 
                 <!-- <div class="p-col-4">
                     <label for="denunciation_type">Tipo</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
-                    <label class="label-dialog-dest" for="denunciation_type">Tipo</label>
-                    <p-dropdown [options]="denunciation_type_options" [(ngModel)]="selectedOptionTypeDenunciation" placeholder="Selecione o Tipo" optionLabel="name" ></p-dropdown>
+                    <label class="label-dialog-dest" >Tipo</label>
+                    <p-dropdown [options]="denunciation_type_options" formControlName="denunciation_type"  placeholder="Selecione o Tipo" optionLabel="name" ></p-dropdown>
                     <!-- <input pInputText id="denunciation_type" [(ngModel)]="selectedDirection.denunciation_type" /> -->
+                    <div class="text-danger" *ngIf="recipientForm.get('denunciation_type').invalid && recipientForm.get('denunciation_type').touched">
+                      <div *ngIf="recipientForm.get('denunciation_type').errors.required">Tipo de denúncia é obrigatório</div>
+                    </div>
                 </div>
 <!--
                 <div class="p-col-4">
@@ -85,15 +96,21 @@
                 </div> -->
                 <div class="p-col-8 box-label-input">
                     <label  class="label-dialog-dest" for="city">Cidade</label>
-                    <input pInputText id="city" [(ngModel)]="selectedDirection.city" />
+                    <input pInputText id="city" formControlName="city" autocomplete="none"  />
+                    <div class="text-danger" *ngIf="recipientForm.get('city').invalid && recipientForm.get('city').touched">
+                      <div *ngIf="recipientForm.get('city').errors.required">A Cidade é obrigatória</div>
+                    </div>
                 </div>
-<!--
+<!--+
                 <div class="p-col-4">
                     <label for="state">Estado</label>
                 </div> -->
                 <div class="p-col-8 box-label-input">
                     <label class="label-dialog-dest" for="state">Estado</label>
-                    <input pInputText id="state" [(ngModel)]="selectedDirection.state" />
+                    <input pInputText id="state" formControlName="state"  autocomplete="none" />
+                    <div class="text-danger" *ngIf="recipientForm.get('state').invalid && recipientForm.get('state').touched">
+                      <div *ngIf="recipientForm.get('state').errors.required">O Estado é obrigatório</div>
+                    </div>
                 </div>
 
                 <!-- <div class="p-col-4">
@@ -101,20 +118,23 @@
                 </div> -->
                 <div class="p-col-8 box-label-input">
                     <label class="label-dialog-dest" for="country">País</label>
-                    <input pInputText id="country" [(ngModel)]="selectedDirection.country" />
+                    <input pInputText id="country" formControlName="country" autocomplete="none" />
+                    <div class="text-danger" *ngIf="recipientForm.get('country').invalid && recipientForm.get('country').touched">
+                      <div *ngIf="recipientForm.get('country').errors.required">O País é obrigatório</div>
+                    </div>
                 </div>
 
                 <div class="p-col-8 box-label-input">
                   <!-- <label style="margin: 0;" for="country">Email Primário</label> -->
-                  <p-checkbox label="Email Primário" [(ngModel)]="selectedDirection.include_primary" binary="true"></p-checkbox>
+                  <p-checkbox label="Email Primário" formControlName="include_primary"  binary="true"></p-checkbox>
                   <!-- <p-triStateCheckbox  [(ngModel)]="selectedDirection.include_primary" label="Email Primário"></p-triStateCheckbox> -->
                   <!-- <input pInputText id="country" [(ngModel)]="recipient.country" /> -->
               </div>
-            </div>
+            </form>
             <p-footer>
                 <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button *ngIf="isModeEditForm" style="background-color: #d70404 !important; float: left; border: 1px solid #d70404;" type="button" pButton icon="pi pi-times" label="Remover" (click)="removeRecipient()" ></button>
-                    <button style="background-color: #058950 !important; float: right; border: 1px solid #058950;" type="button" pButton icon="pi pi-check"  label="Salvar" (click)="saveRecipient()"></button>
+                    <button *ngIf="isModeEditForm" [disabled]="submittingForm || recipientForm.invalid" style="background-color: #d70404 !important; float: left; border: 1px solid #d70404;" type="button" pButton icon="pi pi-times" label="Remover" (click)="removeRecipient()" ></button>
+                    <button [disabled]="submittingForm || recipientForm.invalid"  style="background-color: #058950 !important; float: right; border: 1px solid #058950;" type="button" pButton icon="pi pi-check"  label="Salvar" (click)="saveRecipient()"></button>
                 </div>
             </p-footer>
         </p-dialog>

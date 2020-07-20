@@ -153,10 +153,10 @@ export class DenunciationListComponent implements OnInit {
             return {
               id: value.id,
               code: value.code,
-              type: value.type,
+              type: value.type.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()),
               date: value.createdAt,
-              city: value.city,
-              state: value.state,
+              city: value.city.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()),
+              state: value.state.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()),
               status: value.statesDenunciation[0].type
             };
           });
