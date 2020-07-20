@@ -37,10 +37,14 @@
                 </tr>
             </ng-template>
             <ng-template  pTemplate="body" let-rowData let-columns="columns">
-                <tr [pSelectableRow]="rowData" >
+                <tr [pSelectableRow]="rowData"  style="border-bottom: 1px solid;">
                     <td *ngFor="let col of columns">
-                        {{col.field !=  'include_primary' ? rowData[col.field] : ''}}
+                      <div class="div-span">
+                        <span style="width: 165px;" class="ui-column-title">{{col.header}}</span>
+                        <span>{{col.field !=  'include_primary' ? rowData[col.field] : ''}}</span>
                         <span *ngIf="col.field == 'include_primary' ">{{rowData[col.field] ? 'Sim' : 'Não'}}</span>
+
+                      </div>
                     </td>
                 </tr>
             </ng-template>

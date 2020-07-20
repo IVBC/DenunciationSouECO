@@ -67,6 +67,10 @@ body{
 
 }
 
+tr.ui-selectable-row.ng-star-inserted {
+  outline: none;
+}
+
 
 
 
@@ -100,7 +104,16 @@ body{
   // .visible-text-button {
   //   display: none;
   // }
+  .div-span{
+    text-align: justify !important;
+  }
 
+  button#btn-action {
+    position: relative;
+    float: left;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   
 
  }
@@ -120,7 +133,16 @@ body{
     }
 
   }
+  .div-span{
+    text-align: justify !important;
+  }
 
+  button#btn-action {
+    position: relative;
+    float: left;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   
 
   // .visible-text-button {
