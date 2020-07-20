@@ -22,6 +22,11 @@ a#den {
   color: #717171;
 }
 
+.perfil:hover {
+  color: #058950 !important;
+}
+
+
 
 .red {
   display: block;
@@ -126,7 +131,7 @@ a#den {
   div#nav-desktop {
     display: none !important;
   }
-  
+
   img#logoeco {
     display: none;
   }

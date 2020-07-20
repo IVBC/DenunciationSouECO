@@ -43,8 +43,11 @@ width: 100%;
     <div id="nav-desktop"  style="position: relative; display: flex; font-size: 16px" >
       <a id="red" class="red" [routerLink]="['/denunciations/redirect']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="activeNav">Destinatários</a>
       <a id="den" class="red" [routerLink]="['/denunciations']"  routerLinkActive="activeNav" [routerLinkActiveOptions]="{exact:true}" >Denúncias</a>
+      <a id="perfil" style="cursor: pointer;  color: #717171 !important; " class="red perfil " matTooltipPosition="above" matTooltip="Visualizar Perfil" (click)="dialogUser()" [routerLinkActiveOptions]="{exact:true}">Meu Perfil</a>
+      <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"
+      matTooltip="Clique para encerrar sessão" class="material-icons ml-3" (click)="confirmDialog()">exit_to_app</i>
     </div>
-    <div id="logout" style="display: flex; flex-direction: row;">
+    <!-- <div id="logout" style="display: flex; flex-direction: row;">
       <div style="width: 150px; height: max-content; display: table;
       justify-content: right;" >
         <span style="font-weight: bolder; font-size: 20px; width: max-content; float: right;">{{name}}</span>
@@ -54,7 +57,7 @@ width: 100%;
   
       <i style="font-size: 37px; cursor: pointer;  color: #000000;" matTooltipPosition="above"
          matTooltip="Clique para encerrar sessão" class="material-icons ml-3" (click)="confirmDialog()">exit_to_app</i>
-    </div>
+    </div> -->
 
 
     <ul id="menuList" class="navbar-nav">
