@@ -27,11 +27,10 @@ export class SignInComponent implements OnInit {
     this.loading = false;
   }
   loginUser() {
-    console.log(this.signinForm.value);
+
     this.loading = true;
     this.authService.signIn(this.signinForm.value).subscribe((ans) => {
       this.loading = false;
-      console.log(this.authService)
       const name  = this.authService.currentUser.name;
       this.toastrService.success('Bem Vindo ' + name + '!');
       this.router.navigate(['denunciations']);

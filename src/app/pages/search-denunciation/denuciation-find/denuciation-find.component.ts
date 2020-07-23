@@ -213,7 +213,6 @@ export class DenuciationFindComponent implements OnInit {
     setTimeout(() => {
       this.loadingStepper = true;
     }, 100);
-    console.log(this.currentStepper);
   }
 
   openLink(file: any) {
@@ -229,7 +228,6 @@ export class DenuciationFindComponent implements OnInit {
       this.data = ans;
       this.galleryImages = this.data.denunciation.files.map(value => ({small: value.url, medium: value.url, big: value.url }));
       // this.changeDetectorRef.detectChanges();
-      console.log(this.data);
       if (ans.historyDenunciation) {
         this.tableData = ans.historyDenunciation.map(value => ({
           status: value.stateDenunciation.type,
@@ -241,7 +239,6 @@ export class DenuciationFindComponent implements OnInit {
       }
       // `De ${this.datePipe.transform(new Date(value.createdAt), 'dd/MM/yy hh:mm a')}
       //              às ${this.datePipe.transform(new Date(value.closed_at), 'dd/MM/yy hh:mm a')}`
-      console.log(this.data.statusDenunciation.state_id - 1);
       this.setStatusStepper(this.data.statusDenunciation.state_id - 1);
     }
   }
@@ -260,7 +257,6 @@ export class DenuciationFindComponent implements OnInit {
         this.galleryImages = this.data.denunciation.files.map(value => ({small: value.url, medium: value.url, big: value.url }));
 
         // this.changeDetectorRef.detectChanges();
-        console.log(this.data);
         if (ans.historyDenunciation) {
           this.tableData = ans.historyDenunciation.map(value => ({
             status: value.stateDenunciation.type,
@@ -272,7 +268,6 @@ export class DenuciationFindComponent implements OnInit {
         }
         // `De ${this.datePipe.transform(new Date(value.createdAt), 'dd/MM/yy hh:mm a')}
         //              às ${this.datePipe.transform(new Date(value.closed_at), 'dd/MM/yy hh:mm a')}`
-        console.log(this.data.statusDenunciation.state_id - 1);
         this.setStatusStepper(this.data.statusDenunciation.state_id - 1);
       }
 

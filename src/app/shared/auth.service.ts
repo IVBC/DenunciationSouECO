@@ -19,8 +19,6 @@ export class AuthService {
     private http: HttpClient,
     public router: Router
   ) {
-
-    console.log('instanciando....')
   }
 
   // Sign-up

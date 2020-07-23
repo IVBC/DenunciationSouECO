@@ -78,7 +78,6 @@ export class DenunciationListComponent implements OnInit {
   ngOnInit() {
     this.alert = {status: false};
     FilterUtils['custom'] = (value: Date, filter: Date): boolean => {
-      console.log(value, filter)
       if (filter === undefined || filter === null) {
         return true;
       }
@@ -138,7 +137,6 @@ export class DenunciationListComponent implements OnInit {
       // for (let i = 0; i < this.DATA.length; i++ ) {
       //   this.date.push({label: this.DATA[i].date.toISOString()});
       // }
-      console.log('varialve type', this.type);
 
     }
 
@@ -146,7 +144,6 @@ export class DenunciationListComponent implements OnInit {
       this.loading = true;
       this.denunciationService.getAll().subscribe(denunciations => {
         this.loading = false;
-        console.log(denunciations);
         if (denunciations.length) {
           this.alert = {status: false};
           this.DATA = denunciations.map(value => {
@@ -191,19 +188,15 @@ export class DenunciationListComponent implements OnInit {
     }
 
   onSelectDateFilter($event: any, col, dt) {
-    console.log($event, dt);
-    console.log(this.dateSeach)
     dt.filter(this.dateSeach, col.field, 'custom')
   }
 
   onClearClick(col, dt) {
-    console.log(col, dt);
     dt.filter(null, col.field, col.filterMatchMode);
 
   }
 
   viewDenunciation(code) {
-    console.log(code);
     this.router.navigate(['denunciations/' + code]);
   }
 }

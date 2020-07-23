@@ -136,7 +136,6 @@ export class RedirectDenunciationComponent implements OnInit {
   }
 
   showDialogToAdd() {
-      console.log(this.recipientForm)
 
       this.isModeEditForm = false;
       this.selectedDirection = {};
@@ -153,7 +152,6 @@ export class RedirectDenunciationComponent implements OnInit {
   updateEmail() {
     this.loadingPrimaryEmail = true;
     this.redirectDenunciation.updateRecipientPrimary(this.primaryRecipient.email).subscribe(response => {
-      console.log('response', response);
       this.primaryRecipient = response;
       this.loadingPrimaryEmail = false;
 
@@ -205,7 +203,6 @@ export class RedirectDenunciationComponent implements OnInit {
   private requestPrimaryEmail() {
     this.loadingPrimaryEmail = true;
     this.redirectDenunciation.getRecipientPrimary().subscribe((response) => {
-      console.log('response', response);
       this.primaryRecipient = response;
       this.loadingPrimaryEmail = false;
     }, error => {
@@ -217,7 +214,6 @@ export class RedirectDenunciationComponent implements OnInit {
   private requestSecondaryEmails() {
       this.loadingSecondaryRecipients = true;
       this.redirectDenunciation.getAllSecondaryRecipients().subscribe(response => {
-        console.log(response);
         this.secondaryRecipients = response;
         this.secondaryRecipients = this.secondaryRecipients.map(sec => ({
           ... sec,
@@ -234,7 +230,6 @@ export class RedirectDenunciationComponent implements OnInit {
   }
 
   removeRecipient() {
-    console.log(this.selectedDirection);
 
 
     this.loadingDeleteRecipients = true;
@@ -257,10 +252,9 @@ export class RedirectDenunciationComponent implements OnInit {
       ... this.recipientForm.value,
       denunciation_type: this.recipientForm.controls.denunciation_type.value.value
     }
-    console.log(newRecipient);
     if (!this.isModeEditForm) {
-      this.redirectDenunciation.newRecipientSecondary(newRecipient).subscribe(() => {
-        this.toastrService.success(`Destinário ${this.selectedDirection.name} cadastrado com sucesso!`);
+      this.redirectDenunciation.newRecipientSecondary(newRecipient).subscribe((newRec) => {
+        this.toastrService.success(`Destinário ${newRec.name} cadastrado com sucesso!`);
         this.requestSecondaryEmails();
         this.loadingAddRecipient = false;
         this.displayDialog = false;

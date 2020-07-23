@@ -27,8 +27,7 @@ export class DenunciationsManagerComponent implements OnInit {
 
     this.user = this.authService.getUser();
     this.name  = this.user.name;
-    console.log(this.authService)
-    console.log(this.authService.currentUser.name)
+
   }
 
   signOut() {

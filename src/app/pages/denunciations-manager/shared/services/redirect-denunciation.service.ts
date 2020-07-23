@@ -18,7 +18,6 @@ export class RedirectDenunciationService {
 
   getRecipientPrimary(): Observable<PrimaryRecipient> {
     const url = `${this.api}/primaryEmail`;
-    console.log(url);
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDatatoPrimaryRecipient)
@@ -26,7 +25,6 @@ export class RedirectDenunciationService {
   }
 
   updateRecipientPrimary(email: string): Observable<PrimaryRecipient> {
-    console.log('Setting new email: ', email );
     return this.http.put(`${this.api}/primaryEmail`, { email }).pipe(
       timeout(120000),
       catchError(this.handleError),
@@ -36,7 +34,6 @@ export class RedirectDenunciationService {
 
   getAllSecondaryRecipients(): Observable<SecondaryRecipient[]> {
     const url = `${this.api}/recipients`;
-    console.log(url);
     return this.http.get(url).pipe(
       timeout(120000),
       catchError(this.handleError),
@@ -45,7 +42,6 @@ export class RedirectDenunciationService {
   }
 
   newRecipientSecondary(data: SecondaryRecipient): Observable<SecondaryRecipient> {
-    console.log('newRecipientSecondary ', data );
     return this.http.post(`${this.api}/recipients`, data).pipe(
       timeout(120000),
       catchError(this.handleError),
@@ -140,7 +136,6 @@ export class RedirectDenunciationService {
   }
 
   updateRecipientSecondary(data: SecondaryRecipient): Observable<SecondaryRecipient> {
-    console.log('edit Recipient Secondary ', data );
     return this.http.put(`${this.api}/recipients/${data.id}`, data).pipe(
       timeout(120000),
       catchError(this.handleError),

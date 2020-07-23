@@ -35,7 +35,6 @@ export class DenuciationFetchComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.get('code').value);
     this.code = this.form.get('code').value;
     this.loadData();
   }

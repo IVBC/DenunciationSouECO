@@ -55,11 +55,11 @@ export class DenunciationFormComponent implements OnInit {
     5: 'DONE',
   };
   public mapStatus = {
-    SEND: 'Enviado',
+    SEND: 'Recebida',
     DONE: 'Finalizado',
-    UNSEND: 'Nao Enviado',
+    UNSEND: 'Não Enviada',
     IN_PROGRESS: 'Em Análise',
-    FORWARDED: 'Encaminhada'
+    FORWARDED: 'Encaminhado'
   };
 
 
@@ -297,7 +297,6 @@ export class DenunciationFormComponent implements OnInit {
 
 
   analyzeOption(option) {
-    console.log(option);
     if (this.currentAction === 'edit' || this.data.statusDenunciation.state_id === 5 || this.idByStates[option.value] === this.data.statusDenunciation.state_id + 1) {
       if (option.value == 'DONE') {
         // this.viewDescript = true;
@@ -324,7 +323,6 @@ export class DenunciationFormComponent implements OnInit {
   }
 
   showBasicDialog(rowData: any) {
-    console.log(rowData);
     if (rowData) {
       this.currentAction = 'edit';
       this.statusForm.patchValue({
@@ -388,7 +386,6 @@ export class DenunciationFormComponent implements OnInit {
     setTimeout(() => {
       this.loadingStepper = true;
     }, 100);
-    console.log(this.currentStepper);
   }
 
   openLink(file: any) {
@@ -398,9 +395,7 @@ export class DenunciationFormComponent implements OnInit {
   onSubmit() {
     this.loading = true;
 
-    console.log(this.data.denunciation.code, this.statusForm);
     this.denunciationService.updateStatus(this.data.denunciation.code, this.statusForm).subscribe(ans => {
-        console.log(ans);
         this.loading = false;
         this.toastrService.success('Status Atualizado com sucesso !');
         this.loadData();
@@ -409,7 +404,6 @@ export class DenunciationFormComponent implements OnInit {
       error => {
         this.loading = false;
         this.toastrService.error('Erro ao atualizar o Status. Por favor, tente novamente.', 'Falha na comunicação com o Servidor.');
-        console.log(error);
       }
     );
 
@@ -417,13 +411,11 @@ export class DenunciationFormComponent implements OnInit {
 
   uploadFile($event: Event) {
     const file = ($event.target as HTMLInputElement).files[0];
-    console.log(file);
     this.fileName = file.name;
     this.statusForm.patchValue({
       file
     });
     this.statusForm.get('file').updateValueAndValidity();
-    console.log(this.statusForm);
   }
 
   private loadData() {
@@ -437,7 +429,6 @@ export class DenunciationFormComponent implements OnInit {
         this.galleryImages = this.data.denunciation.files.map(value => ({small: value.url, medium: value.url, big: value.url }));
 
         // this.changeDetectorRef.detectChanges();
-        console.log(this.data);
         if (ans.historyDenunciation) {
           this.tableData = ans.historyDenunciation.map(value => ({
             status: value.stateDenunciation.type,
@@ -449,7 +440,6 @@ export class DenunciationFormComponent implements OnInit {
         }
         // `De ${this.datePipe.transform(new Date(value.createdAt), 'dd/MM/yy hh:mm a')}
         //              às ${this.datePipe.transform(new Date(value.closed_at), 'dd/MM/yy hh:mm a')}`
-        console.log(this.data.statusDenunciation.state_id - 1);
         this.setStatusStepper(this.data.statusDenunciation.state_id - 1);
       }
 
@@ -466,7 +456,6 @@ export class DenunciationFormComponent implements OnInit {
 
   onSelect(seila) {
     const findStatus = this.data.historyDenunciation.find(value => value.stateDenunciation.type === this.selectedStatus.value);
-    console.log(findStatus);
     if (findStatus) {
       this.statusForm.patchValue({
         state_id: this.idByStates[this.selectedStatus.value],
@@ -484,7 +473,6 @@ export class DenunciationFormComponent implements OnInit {
   }
 
   deleteStatus(rowData) {
-    console.log(rowData);
     const idStatus = this.idByStates[rowData.status];
     const newStatus = this.statesById[idStatus - 1];
 
@@ -499,13 +487,11 @@ export class DenunciationFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
-        console.log(dialogResult);
         this.denunciationService.deleteStatus(this.data.denunciation.code, idStatus).subscribe(ans => {
           this.toastrService.success('O Status foi removido e atualizado com sucesso!');
           this.loadData();
 
         }, error => {
-          console.log(error);
           this.toastrService.error('Nao foi possível remover o Status. Por favor, tente novamente.', 'Falha na comunição com o Servidor');
         });
       }
