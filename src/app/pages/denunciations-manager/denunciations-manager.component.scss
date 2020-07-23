@@ -36,6 +36,19 @@ a#den {
 }
 
 
+@media (min-width: 300px) {
+  img#logoMobile {
+      width: 200px;
+      height: 50px;
+      border-radius: 50px;
+      /* padding: 0px 30px 0px 18px; */
+  }
+
+  .div-span{
+    text-align: justify !important;
+  }
+
+}
 
 
 @media (max-width: 575.98px) {
@@ -58,12 +71,16 @@ a#den {
   div#logout {
     display: none !important;
   }
-  img#logoMobile {
-    width: 280px;
-    height: 50px;
-    border-radius: 50px;
-    padding: 0px 30px 0px 30px;
+
+  .div-span{
+    text-align: justify !important;
   }
+  // img#logoMobile {
+  //   width: 280px;
+  //   height: 50px;
+  //   border-radius: 50px;
+  //   padding: 0px 30px 0px 30px;
+  // }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -93,6 +110,10 @@ a#den {
     height: 50px;
     border-radius: 50px;
     padding: 0px 30px 0px 30px;
+  }
+
+  .div-span{
+    text-align: justify !important;
   }
 }
 
@@ -129,17 +150,44 @@ a#den {
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width: 1199.98px) {
 
-  div#nav-desktop {
-    display: none !important;
-  }
+  // div#nav-desktop {
+  //   display: none !important;
+  // }
 
-  img#logoeco {
-    display: none;
+  // img#logoeco {
+  //   display: none;
+  // }
+
+  // img#logoMobile {
+  //   display: block;
+  // }
+
+  div#navbarNav {
+    justify-content: space-between;
   }
 
   img#logoMobile {
-    display: block;
+    display: none;
   }
+  ul#menuList {
+    display: none;
+  }
+
+  img#logoeco {
+    width: 360px  !important;
+    height: 70px  !important;
+    border-radius: 50px  !important;
+    padding: 0px 30px 0px 30px  !important; 
+  } 
+
+  h4#h4title {
+    margin: 0  !important;
+    height: max-content  !important;
+    color: #058950  !important;
+    font-size: 1rem  !important;
+    text-align: center  !important;
+  }
+
 }
 
 // Extra large devices (large desktops, 1200px and up)

@@ -7,7 +7,7 @@
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
 
                 <input type="text" pInputText  placeholder="Filtro Geral" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width: 65%">
-               <!-- -->
+            
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -15,14 +15,11 @@
                 <th *ngFor="let col of columns"  [pSortableColumn]="col.field" style="text-align: center;">
                     {{col.header}}
                   <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-
                 </th>
-
             </tr>
             <tr>
                 <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <input id="input" *ngSwitchCase="'code'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width:100% !important;" > <!---->
-
+                    <input id="input" *ngSwitchCase="'code'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width:100% !important;" > 
 
                     <div class="form-group mb-0" *ngSwitchCase="'city'" >
                       <select class="form-control" id="exampleFormControlSelect1" (change)="dt.filter($event.target.value, col.field, 'contains')">
@@ -36,15 +33,13 @@
                       </select>
                     </div>
 
-
                     <div class="form-group mb-0" *ngSwitchCase="'state'" >
                       <select class="form-control mb-0" id="exampleFormControlSelect1" (change)="dt.filter($event.target.value, col.field, 'contains')">
                         <option *ngFor="let stt of state" value="{{stt.value}}" >{{stt.label}}</option>
                       </select>
                     </div>
 
-                    <div  *ngSwitchCase="'date'"  >
-
+                    <div  *ngSwitchCase="'date'">
                       <div style="width: 100%; display: flex; flex-direction: row; height: 40px;">
 
                         <mat-form-field *ngSwitchCase="'date'" [ngStyle]="{width: dateSeach?'85%':'100%'}" >
@@ -57,9 +52,7 @@
                         <i *ngIf="dateSeach"  matTooltipPosition="above" matTooltip="Limpar Data" class="material-icons cleaner ml-2"  (click)="onClearClick(col, dt); dateSeach=null;">close</i>
 
                       </div>
-
                     </div>
-
                     <div class="form-group mb-0" *ngSwitchCase="'status'" (change)="dt.filter($event.target.value, col.field, 'contains')">
                       <select class="form-control" id="exampleFormControlSelect1">
                         <option *ngFor="let stts of status" value="{{stts.value}}" >{{stts.label}}</option>
@@ -87,31 +80,36 @@
                 </div>
               </th>
             </tr>
-
-
         </ng-template>
 
         <ng-template pTemplate="body" let-rowData let-columns="columns">
 
-            <tr [pSelectableRow]="rowData">
-                <td *ngFor="let col of columns" style="text-align: -webkit-center;">
+            <tr [pSelectableRow]="rowData" style="border-bottom: 1px solid;">
+                <td *ngFor="let col of columns" style="text-align: center;" >
+<!-- *ngIf="col.header == 'Status' || col.header == 'Ações' ? false : true  " -->
+                  <div class="div-span">
+                    <span  class="ui-column-title">{{col.header}}</span>
+                    <span *ngIf="col.field == 'code' ">{{rowData[col.field ]}}</span>
+                    <span *ngIf="col.field == 'type' ">{{rowData[col.field ]}}</span>
+                    <span *ngIf="col.field == 'date' ">{{rowData[col.field ] | date: 'dd/MM/yyyy hh:mm aa'}}</span>
+                    <span *ngIf="col.field == 'city' ">{{rowData[col.field ]}}</span>
+                    <span *ngIf="col.field == 'state' ">{{rowData[col.field ]}}</span>
 
-                  <span *ngIf="col.field == 'code' ">{{rowData[col.field ]}}</span>
-                  <span *ngIf="col.field == 'type' ">{{rowData[col.field ]}}</span>
-                  <span *ngIf="col.field == 'date' ">{{rowData[col.field ] | date: 'dd/MM/yyyy hh:mm aa'}}</span>
-                  <span *ngIf="col.field == 'city' ">{{rowData[col.field ]}}</span>
-                  <span *ngIf="col.field == 'state' ">{{rowData[col.field ]}}</span>
-
-
-                  <div [ngClass]="setStatus(rowData[col.field])"  *ngIf="col.field == 'status'" style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex; ">
-                   <span style="float: left; font-weight: bold; position: relative; top: 2px;">{{textStatus}}</span >
+                    <div [ngClass]="setStatus(rowData[col.field])" id="status"  *ngIf="col.field == 'status'" style="justify-content: center; width: 100%; height: 25px; float: left; border-radius: 4px; display: flex; ">
+                      <span style="float: left; font-weight: bold; position: relative; top: 2px;">{{textStatus}}</span >
+                    </div>
+   
+                     <button  matTooltipPosition="above" id="btn-action"
+                     matTooltip="Visualizar" *ngIf="col.field == 'action' " style="display: flex; flex-direction: row;" type="button" class="btn btn-outline-primary" (click)="viewDenunciation(rowData['code'])">
+                       <p  class="mb-0 visible-text-button">Visualizar</p>
+                       <i class="material-icons  " >visibility</i>
+                     </button>
                   </div>
 
-                  <button  matTooltipPosition="above"
-                  matTooltip="Visualizar" *ngIf="col.field == 'action' " style="display: flex; flex-direction: row;" type="button" class="btn btn-outline-primary" (click)="viewDenunciation(rowData['code'])">
-                    <p  class="mb-0 visible-text-button">Visualizar</p>
-                    <i class="material-icons  " >visibility</i>
-                  </button>
+            
+
+
+           
 
                 </td>
 

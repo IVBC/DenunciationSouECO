@@ -5,6 +5,13 @@
       min-width: 365px;
   }
 
+
+  tr.ui-selectable-row.ng-star-inserted {
+    outline: none;
+  }
+
+
+
   tr.ui-selectable-row.ng-star-inserted.ui-state-highlight {
     background-color: #058950 !important;
     color: #ffffff;
@@ -143,7 +150,11 @@
         justify-content: center !important;
       }
     }
-  
+    .div-span {
+      
+      position: relative;
+      display: flex;
+    }
    
   
     // .visible-text-button {
@@ -173,6 +184,12 @@
     .input-email {
       width: 40% !important;
       margin-bottom: 10px;
+    }
+
+    .div-span {
+      
+      position: relative;
+      display: flex;
     }
 
   }

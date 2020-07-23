@@ -67,6 +67,10 @@ body{
 
 }
 
+tr.ui-selectable-row.ng-star-inserted {
+  outline: none;
+}
+
 
 
 
@@ -95,12 +99,31 @@ body{
     }
   }
 
+  div#status {
+    justify-content: center !important;
+    width: 63% !important;
+    height: 25px !important;
+    position: relative !important;
+    float: right !important;
+    border-radius: 4px !important;
+    display: flex !important;
+  }
  
 
   // .visible-text-button {
   //   display: none;
   // }
+  .div-span{
+    display: flex;
+    text-align: justify !important;
+  }
 
+  // button#btn-action {
+  //   position: relative;
+  //   float: left;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  // }
   
 
  }
@@ -120,7 +143,27 @@ body{
     }
 
   }
+  .div-span{
+    display: flex;
+    text-align: justify !important;
+  }
 
+  div#status {
+    justify-content: center !important;
+    width: 63% !important;
+    height: 25px !important;
+    position: relative !important;
+    float: right !important;
+    border-radius: 4px !important;
+    display: flex !important;
+  }
+
+  // button#btn-action {
+  //   position: relative;
+  //   float: left;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  // }
   
 
   // .visible-text-button {
