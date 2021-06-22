@@ -51,7 +51,7 @@
   height: max-content;
   display: flex;
   flex-direction: row;
-
+  flex-wrap: wrap;
 }
 
 .cardDenun{
@@ -153,7 +153,10 @@
 
 .descript{
   text-align: center;
-  width: 65%;
+  flex: 1;
+  word-break: break-all;
+  min-width: 320px;
+  margin-top: 16px;
 }
 
 .info-descript{
@@ -480,7 +483,7 @@
     display: none;
   }
 
-  
+
   h5#stausText {
     font-size: 25px;
   }

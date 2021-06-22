@@ -172,7 +172,7 @@ export class DenunciationListComponent implements OnInit {
 
 
     public setStatus(p) {
-      if (p == 'SEND') {
+      if (p == 'SEND' || p === 'UNSEND') {
         this.textStatus = 'RECEBIDA';
         return (this.textStatus, 'send' );
       } else if (p == 'IN_PROGRESS') {

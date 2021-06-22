@@ -222,41 +222,40 @@
 
 <p-dialog header="{{currentAction==='edit'? 'Atualizando': 'Novo'}} Status da Denúncia" [(visible)]="displayModal" [modal]="true" [style]="{width: '30vw'}" [baseZIndex]="10000">
   <!-- <div style="width: 250px !important; position: relative; display: flex; min-height: 400px; flex-direction: column; padding: 5px; background: #fff; border-radius: 11px;"> -->
-  <div style="min-height: 400px">
-    <img class=" img-fluid mb-3 mt-3 mr-2" src="../../../../assets/images/logoTCE.png" alt="">
+  <div class="d-flex flex-column" style="min-height: 400px">
+    <div class="d-flex justify-content-between align-items-center flex-wrap" >
+      <img class="img-fluid mb-3 mt-3 mr-2" src="../../../../assets/images/logoTCE.png" alt="">
     <!-- this.currentAction === 'edit' -->
-    <p-dropdown  [disabled]="true" class="mr-1" [options]="status" [(ngModel)]="selectedStatus"  (onChange)="onSelect($event)" placeholder="Selecione o Status" optionLabel="viewValue" [showClear]="true"></p-dropdown>
-
-    <div *ngIf="isValidSelect">
-      <form [formGroup] = "statusForm" >
-        <div  class="input-group mb-3 mt-3" style="display: flex; flex-direction: column; height: 250px; ">
-          <div class="text-danger" *ngIf="statusForm.get('details').invalid && statusForm.get('details').touched">
-            <div *ngIf="statusForm.get('details').errors.required"> Dado Obrigatório </div>
-            <div *ngIf="statusForm.get('details').errors.minlength"> Deve ter no mínimo 60 caracteres.  </div>
-          </div>
-          <span style="color: #058950;">Descrição:</span>
-          <textarea maxlength="1000" class="form-control" aria-label="With textarea" formControlName="details" style="height: 250px; font-size: 15px; "></textarea>
-        </div>
-
-        <div *ngIf="viewUpload" class="input-group mb-3" style="display: flex; flex-direction: column; ">
-          <div class="text-danger" *ngIf="statusForm.get('file').invalid && statusForm.get('file').touched">
-            <div *ngIf="statusForm.get('file').errors.required"> Dado Obrigatório </div>
-          </div>
-          <mat-label  style="color: #058950;">Protocolo:</mat-label>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" formControlName="file" id="inputGroupFile01" (change)="uploadFile($event)" aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">{{fileName? fileName: 'Anexar o protocolo'}}</label>
-          </div>
-        </div>
-      </form>
+      <p-dropdown  [disabled]="true" class="mr-1" [options]="status" [(ngModel)]="selectedStatus"  (onChange)="onSelect($event)" placeholder="Selecione o Status" optionLabel="viewValue" [showClear]="true"></p-dropdown>
     </div>
+    <form [formGroup] = "statusForm" *ngIf="isValidSelect" class="d-flex flex-column flex-fill">
+      <div  class="input-group mb-3 mt-3 d-flex flex-column flex-fill">
+        <div class="text-danger" *ngIf="statusForm.get('details').invalid && statusForm.get('details').touched">
+          <div *ngIf="statusForm.get('details').errors.required"> Dado Obrigatório </div>
+          <div *ngIf="statusForm.get('details').errors.minlength"> Deve ter no mínimo 60 caracteres.  </div>
+        </div>
+        <span style="color: #058950;">Descrição:</span>
+        <textarea maxlength="1000" class="form-control" aria-label="With textarea" formControlName="details" style="font-size: 15px; resize: none; width: 100%;"></textarea>
+      </div>
+
+      <div *ngIf="viewUpload" class="input-group mb-3" style="display: flex; flex-direction: column; ">
+        <div class="text-danger" *ngIf="statusForm.get('file').invalid && statusForm.get('file').touched">
+          <div *ngIf="statusForm.get('file').errors.required"> Dado Obrigatório </div>
+        </div>
+        <mat-label  style="color: #058950;">Protocolo:</mat-label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" formControlName="file" id="inputGroupFile01" (change)="uploadFile($event)" aria-describedby="inputGroupFileAddon01">
+          <label class="custom-file-label" for="inputGroupFile01">{{fileName? fileName: 'Anexar o protocolo'}}</label>
+        </div>
+      </div>
+    </form>
     <div *ngIf="!isValidSelect && selectedStatus">
       <h2> É necessário atualizar os status anteriores para acrescentar este status. </h2>
     </div>
   </div>
   <!-- </div> -->
   <p-footer>
-    <button [disabled]="loading || statusForm.invalid" type="button" pButton icon="pi pi-check" (click)="onSubmit()" label="Salvar"></button>
+    <button [disabled]="loading" type="button" pButton icon="pi pi-check" (click)="onSubmit()" label="Salvar"></button>
     <button type="button" pButton icon="pi pi-times" (click)="cancelSubmit()" label="Cancelar" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>

@@ -393,6 +393,10 @@ export class DenunciationFormComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.statusForm.invalid) {
+      this.statusForm.markAllAsTouched();
+      return;
+    }
     this.loading = true;
 
     this.denunciationService.updateStatus(this.data.denunciation.code, this.statusForm).subscribe(ans => {
