@@ -92,7 +92,6 @@ export class AuthService {
   }
 
   private jsonDataToUser = (jsonData: any): User => {
-    console.log('AuthService.jsonDataToUser() => ', jsonData);
     localStorage.setItem('access_token', jsonData.token)
     localStorage.setItem('user', JSON.stringify(jsonData.user));
     const output = jsonData.user as User;

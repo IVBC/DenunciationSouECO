@@ -5,6 +5,6 @@ services:
     image: cmssoueco
     build: .
     environment:
-      - API_URL=http://192.168.10.156:3333
+      - API_URL=https://soueco-api.tce.am.gov.br
     ports:
       - 8081:80

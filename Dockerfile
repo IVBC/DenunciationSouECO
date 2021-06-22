@@ -1,4 +1,4 @@
-FROM node:latest as angular
+FROM node:13.3.0 as angular
 
 #ENV NODE_ENV production
 
